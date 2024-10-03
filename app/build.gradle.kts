@@ -1,13 +1,14 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id("com.android.application") // Remove the alias if you don't need it.
+    id("com.google.gms.google-services")
 }
 
 android {
-    namespace = "com.example.kussiya"
+    namespace = "com.example.Kussiya"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.kussiya"
+        applicationId = "com.example.Kussiya"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -32,16 +33,15 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.appcompat)
+    implementation(libs.appcompat) // Ensure libs catalog is properly set up.
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.firebase.auth)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation ("com.tbuonomo:dotsindicator:4.2")
-
 
 
 }
