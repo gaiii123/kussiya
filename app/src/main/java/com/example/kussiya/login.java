@@ -81,7 +81,7 @@ public class login extends AppCompatActivity {
                         // Login successful
                         Toast.makeText(login.this, "Login Successful", Toast.LENGTH_SHORT).show();
                         // Navigate to the home activity
-                        Intent intent = new Intent(login.this, home.class);
+                         Intent intent = new Intent(login.this, home.class);
                         startActivity(intent);
                         finish(); // Close the login activity
                     } else {
