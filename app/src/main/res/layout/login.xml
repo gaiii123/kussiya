@@ -12,15 +12,16 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintVertical_bias="0.0">
 
         <ImageView
             android:id="@+id/login_imageview"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="181dp"
+            android:layout_height="159dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -33,26 +34,27 @@
             android:id="@+id/login_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
             android:text="Log In"
-            android:textSize="24dp"
+            android:textSize="34sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.15" />
+            app:layout_constraintVertical_bias="0.243" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="590dp"
+            android:layout_marginTop="200dp"
             android:orientation="vertical"
-            android:layout_marginTop="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_textview"
-            app:layout_constraintVertical_bias="0.02">
-
+            app:layout_constraintVertical_bias="0.633">
 
 
             <EditText
@@ -60,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="#E8DFDF"
+                android:background="@drawable/rounded_edit_text"
                 android:drawableLeft="@drawable/baseline_key_24"
                 android:drawablePadding="20dp"
                 android:hint="Email Address"
@@ -68,34 +70,34 @@
                 android:padding="20dp" />
 
 
-
             <EditText
                 android:id="@+id/login_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="#E8DFDF"
+                android:background="@drawable/rounded_edit_text"
                 android:drawableLeft="@drawable/baseline_key_24"
                 android:drawablePadding="20dp"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:padding="20dp" />
 
-
             <Button
                 android:id="@+id/login_button"
                 android:layout_width="148dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="150dp"
+                android:layout_marginStart="120dp"
+                android:layout_marginTop="25dp"
                 android:backgroundTint="@color/Screen"
                 android:text="Log In"
                 android:textSize="24dp" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="173dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="140dp"
-                android:layout_marginEnd="70dp"
+                android:layout_marginStart="112dp"
+                android:layout_marginEnd="100dp"
+                android:layout_marginBottom="30dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -106,7 +108,7 @@
 
                 <TextView
                     android:id="@+id/SignUp_textview"
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:text="Sign up"
                     android:textSize="20dp"
@@ -117,15 +119,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <View
                     android:id="@+id/view3"
                     android:layout_width="wrap_content"
                     android:layout_height="1dp"
-                    android:layout_weight="1"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:background="#707070" />
 
                 <TextView
@@ -140,8 +141,8 @@
                     android:id="@+id/view4"
                     android:layout_width="wrap_content"
                     android:layout_height="1dp"
-                    android:layout_weight="1"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:background="#707070" />
 
             </LinearLayout>
@@ -153,8 +154,8 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_width="305dp"
+                    android:layout_height="38dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_weight="0.5"
@@ -163,9 +164,10 @@
 
                     <ImageView
                         android:id="@+id/google_login"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="42dp"
+                        android:layout_height="29dp"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="15dp"
                         app:srcCompat="@drawable/google_icon" />
 
                     <TextView
@@ -180,8 +182,8 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_width="298dp"
+                    android:layout_height="38dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_weight="0.5"
@@ -190,14 +192,14 @@
 
                     <ImageView
                         android:id="@+id/fb_login"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="58dp"
+                        android:layout_height="29dp"
                         android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/fb_icon" />
 
                     <TextView
                         android:id="@+id/fb_login_text"
-                        android:layout_width="wrap_content"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
