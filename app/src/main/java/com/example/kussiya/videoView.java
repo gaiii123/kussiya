@@ -26,7 +26,7 @@ public class videoView extends AppCompatActivity {
         });
 
         WebView webview = findViewById(R.id.VideoView);
-        String video = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/V2KCAfHjySQ?si=dt2XTbCwqNmsMpOR\" title=\"Video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>";
+        String video = "<iframe width=\"100%\" height=\"100%\" src=\"https://www.youtube.com/embed/LXX1KVviGBo?si=i35xMZZ9ZJiyQWnk\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>";
         webview.loadData(video,"text/html","utf-8");
         webview.getSettings().setJavaScriptEnabled(true);
         webview.setWebChromeClient(new WebChromeClient());
