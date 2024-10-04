@@ -23,6 +23,9 @@ public class home extends AppCompatActivity {
     private Button logoutButton;
     private FirebaseAuth auth;
     private ImageView imageViewBreakfast;
+    private ImageView imageViewLunch;
+    private ImageView imageViewdinner;
+    private ImageView imageViewdessert;
     BottomNavigationView bottomNavigationView;
 
 
@@ -38,6 +41,9 @@ public class home extends AppCompatActivity {
         // Initialize UI elements
         logoutButton = findViewById(R.id.logout_button1);
         imageViewBreakfast = findViewById(R.id.imageView_breakfast);
+        imageViewLunch = findViewById(R.id.imageView_lunch);
+        imageViewdinner = findViewById(R.id.imageView_dinner);
+        imageViewdessert = findViewById(R.id.imageView_dessert);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
 
@@ -58,6 +64,23 @@ public class home extends AppCompatActivity {
             startActivity(intent);
         });
 
+        imageViewLunch.setOnClickListener(v -> {
+            // Navigate to the breakfast activity
+            Intent intent = new Intent(home.this, lunch_screen.class);
+            startActivity(intent);
+        });
+
+        imageViewdinner.setOnClickListener(v -> {
+            // Navigate to the breakfast activity
+            Intent intent = new Intent(home.this, dinner_screen.class);
+            startActivity(intent);
+        });
+
+        imageViewdessert.setOnClickListener(v -> {
+            // Navigate to the breakfast activity
+            Intent intent = new Intent(home.this, dessert_screen.class);
+            startActivity(intent);
+        });
 
 
         // Set up BottomNavigationView using BottomNavigationHelper
