@@ -12,14 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kussiya"
         tools:targetApi="31">
-        <activity
-            android:name="com.example.kussiya.add_item"
-             />
+
+        <activity android:name="com.example.kussiya.add_item" />
         <activity android:name="com.example.kussiya.home" />
         <activity android:name="com.example.kussiya.login" />
-        <activity
-            android:name="com.example.kussiya.signup"
-             />
+        <activity android:name="com.example.kussiya.signup" />
+        <activity android:name="com.example.kussiya.account" />
+        <activity android:name="com.example.kussiya.notification" />
+        <activity android:name="com.example.kussiya.breakfast_screen" />
+        <activity android:name="com.example.kussiya.DetailsActivity" />
         <activity
             android:name="com.example.kussiya.MainActivity"
             android:exported="true">

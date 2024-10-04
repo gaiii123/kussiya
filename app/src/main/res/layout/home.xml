@@ -1,4 +1,4 @@
- <?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -27,26 +27,11 @@
         android:id="@+id/logout_button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="logout"
-        android:layout_marginStart="300dp"/>
-
-    <EditText
-        android:id="@+id/editTextText"
-        android:layout_width="240dp"
-        android:layout_height="74dp"
-        android:layout_alignBottom="@+id/toolbar"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:text="Logout"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="123dp"
-        android:layout_marginBottom="6dp"
-        android:ems="10"
-        android:inputType="text"
-        android:text="Name"
-        android:textColor="@color/white"
-        android:textSize="20dp" />
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"/>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -55,8 +40,11 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
             <LinearLayout
@@ -80,26 +68,24 @@
                     android:padding="8dp" />
 
 
-
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp">
+                    android:layout_marginBottom="8dp">
 
 
                     <ImageView
                         android:id="@+id/imageView6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:src="@drawable/pudding"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:src="@drawable/pudding" />
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
@@ -125,37 +111,18 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:id="@+id/imageView_dinner"
+                            android:id="@+id/imageView_breakfast"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             android:layout_weight="1"
                             tools:srcCompat="@tools:sample/avatars" />
 
                         <TextView
-                            android:id="@+id/textView_dinner"
+                            android:id="@+id/textView_breakfast"
                             android:layout_width="70dp"
                             android:layout_height="20dp"
                             android:text="Breakfast"
                             android:textAlignment="center" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.5"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/imageView_breakfast"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            tools:srcCompat="@tools:sample/avatars" />
-
-                        <TextView
-                            android:id="@+id/textView_breakfast"
-                            android:layout_width="70dp"
-                            android:layout_height="20dp"
-                            android:text="Lunch" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -172,6 +139,25 @@
 
                         <TextView
                             android:id="@+id/textView_lunch"
+                            android:layout_width="70dp"
+                            android:layout_height="20dp"
+                            android:text="Lunch" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView_dinner"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            tools:srcCompat="@tools:sample/avatars" />
+
+                        <TextView
+                            android:id="@+id/textView_dinner"
                             android:layout_width="70dp"
                             android:layout_height="20dp"
                             android:text="Dinner" />
@@ -201,9 +187,9 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginStart="8dp">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/textView_popular"
@@ -213,9 +199,24 @@
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="180dp"
+                        android:layout_weight="1"
+                        android:text="See all"
+                        android:textSize="15dp" />
 
 
                 </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/popularRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingStart="12dp" />
 
 
             </LinearLayout>
@@ -224,7 +225,7 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@drawable/bottom_backg"
@@ -234,4 +235,5 @@
         app:itemIconTint="@drawable/item_selector"
         app:itemRippleColor="@color/white"
         />
+
 </RelativeLayout>
