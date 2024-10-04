@@ -21,6 +21,8 @@
         <activity android:name="com.example.kussiya.notification" />
         <activity android:name="com.example.kussiya.breakfast_screen" />
         <activity android:name="com.example.kussiya.DetailsActivity" />
+
+
         <activity
             android:name="com.example.kussiya.MainActivity"
             android:exported="true">

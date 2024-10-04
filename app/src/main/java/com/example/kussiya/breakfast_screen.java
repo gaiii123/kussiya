@@ -48,19 +48,19 @@ public class  breakfast_screen extends AppCompatActivity {
         recyclerView.setLayoutManager(gridLayoutManager);
         dataList = new ArrayList<>();
 
-        androidData = new DataClass("Camera", R.string.camera, "Java", R.drawable.camera_detail);
+        androidData = new DataClass("Kiribath", R.string.camera, "Java", R.drawable.kiribath);
         dataList.add(androidData);
 
-        androidData = new DataClass("RecyclerView", R.string.recyclerview, "Kotlin", R.drawable.camera_detail);
+        androidData = new DataClass("B1", R.string.recyclerview, "Kotlin", R.drawable.breakfast2);
         dataList.add(androidData);
 
-        androidData = new DataClass("Date Picker", R.string.date, "Java", R.drawable.date_detail);
+        androidData = new DataClass("B2", R.string.date, "Java", R.drawable.breakfast3);
         dataList.add(androidData);
 
-        androidData = new DataClass("EditText", R.string.edit, "Kotlin", R.drawable.edit_detail);
+        androidData = new DataClass("Kiribath", R.string.edit, "Kotlin", R.drawable.kiribath);
         dataList.add(androidData);
 
-        androidData = new DataClass("Rating Bar", R.string.rating, "Java", R.drawable.rating_detail);
+        androidData = new DataClass("B1", R.string.rating, "Java", R.drawable.breakfast3);
         dataList.add(androidData);
 
         adapter = new MyAdapter(breakfast_screen.this, dataList);

@@ -113,6 +113,7 @@ public class add_item extends AppCompatActivity {
         StorageReference storageReference = FirebaseStorage.getInstance().getReference()
                 .child("RecipeImage").child(uri.getLastPathSegment());
 
+
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Recipe Uploading...");
         progressDialog.show();

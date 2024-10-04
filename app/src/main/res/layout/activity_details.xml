@@ -25,7 +25,7 @@
         android:id="@+id/detailImage"
         android:padding="8dp"
         android:layout_gravity="center"
-        android:src="@drawable/camera_detail"
+        android:src="@drawable/kiribath"
         android:scaleType="centerCrop"/>
 
     <TextView
