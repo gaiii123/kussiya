@@ -25,6 +25,7 @@ public class bottomNavigationHelper {
             } else if (item.getItemId() == R.id.bottom_notification) {
                 if (selectedItemId != R.id.bottom_notification) {
                     context.startActivity(new Intent(context, notification.class));
+
                 }
                 return true;
             } else if (item.getItemId() == R.id.bottom_profile) {

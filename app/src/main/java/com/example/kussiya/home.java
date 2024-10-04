@@ -36,21 +36,13 @@ public class home extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         // Initialize UI elements
-        logoutButton = findViewById(R.id.logout_button1);
+
         imageViewBreakfast = findViewById(R.id.imageView_breakfast);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
 
 
-        // Set up the logout button click listener
-        logoutButton.setOnClickListener(v -> {
-            // Sign out user from Firebase
-            auth.signOut();
-            // Navigate to the login activity
-            Intent intent = new Intent(home.this, login.class);
-            startActivity(intent);
-            finish(); // Close the home activity
-        });
+
 
         imageViewBreakfast.setOnClickListener(v -> {
             // Navigate to the breakfast activity

@@ -11,10 +11,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.Kussiya.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int SPLASH_SCREEN_DURATION = 2000; // 2 seconds delay
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +29,21 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        // Delay for splash screen and then move to login screen
-        new Handler().postDelayed(() -> {
-            Intent intent = new Intent(MainActivity.this, login.class);
-            startActivity(intent);
-            finish(); // Finish the current activity so it can't be returned to
-        }, SPLASH_SCREEN_DURATION);
+        if (currentUser != null) {
+            // User is signed in, navigate to home screen
+            startActivity(new Intent(MainActivity.this, home.class));
+            finish();  // Close this activity to prevent back navigation to it
+        } else {
+
+            // Delay for splash screen and then move to login screen
+            new Handler().postDelayed(() -> {
+                Intent intent = new Intent(MainActivity.this, login.class);
+                startActivity(intent);
+                finish(); // Finish the current activity so it can't be returned to
+            }, SPLASH_SCREEN_DURATION);
+        }
     }
 }

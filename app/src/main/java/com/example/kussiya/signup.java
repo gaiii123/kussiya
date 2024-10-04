@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.util.Patterns;
 import androidx.activity.EdgeToEdge;
@@ -90,6 +91,13 @@ public class signup extends AppCompatActivity {
 
             // Create user in Firebase
             createUser(email, password);
+        });
+        // Set up the sign-up text click listener
+        TextView LoginTextView = findViewById(R.id.textView8);
+        LoginTextView.setOnClickListener(v -> {
+            // Navigate to the signup activity
+            Intent intent = new Intent(signup.this, login.class);
+            startActivity(intent);
         });
     }
 
