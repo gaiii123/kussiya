@@ -39,4 +39,11 @@
         android:textSize="18sp"
         android:id="@+id/detailDesc"/>
 
+    <Button
+        android:id="@+id/playvideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="135dp"
+        android:text="Play Video" />
+
 </LinearLayout>

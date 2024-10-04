@@ -10,8 +10,6 @@ import android.widget.Toast;
 
 import com.example.Kussiya.R;
 import com.google.firebase.auth.FirebaseAuth;
-
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class login extends AppCompatActivity {
@@ -72,6 +70,8 @@ public class login extends AppCompatActivity {
             Intent intent = new Intent(login.this, signup.class);
             startActivity(intent);
         });
+
+
     }
 
     private void loginUser(String email, String password) {
