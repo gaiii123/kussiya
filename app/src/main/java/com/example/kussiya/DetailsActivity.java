@@ -10,7 +10,8 @@ import android.widget.TextView;
 
 import com.example.Kussiya.R;
 import com.example.Kussiya.videoView;
-
+//IM/2021/069
+//IM/2021/097
 public class DetailsActivity extends AppCompatActivity {
 
     TextView detailDesc, detailTitle;
