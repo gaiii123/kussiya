@@ -2,11 +2,14 @@ package com.example.kussiya;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.Kussiya.R;
+import com.example.Kussiya.videoView;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -28,5 +31,17 @@ public class DetailsActivity extends AppCompatActivity {
             detailImage.setImageResource(bundle.getInt("Image"));
             detailTitle.setText(bundle.getString("Title"));
         }
+        Button VidButton = findViewById(R.id.playvideo);
+
+
+
+        // Set up the logout button click listener
+        VidButton.setOnClickListener(v -> {
+
+            // Navigate to the login activity
+            Intent intent = new Intent(DetailsActivity.this, videoView.class);
+            startActivity(intent);
+            finish(); // Close the home activity
+        });
     }
 }
