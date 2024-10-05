@@ -58,7 +58,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="0dp"
-        android:background="@drawable/bottom_backg"
+        android:background="@drawable/navbg"
         app:itemIconSize="40dp"
         app:itemIconTint="@drawable/item_selector"
         app:itemRippleColor="@color/white"
