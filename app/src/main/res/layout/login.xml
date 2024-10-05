@@ -155,64 +155,47 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:layout_gravity="center_horizontal"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="305dp"
-                    android:layout_height="38dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="0.5"
-                    android:background="@drawable/social_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
                     android:orientation="horizontal">
 
-                    <ImageView
+                    <androidx.cardview.widget.CardView
+                        android:layout_gravity="center_horizontal"
                         android:id="@+id/google_login"
-                        android:layout_width="42dp"
-                        android:layout_height="29dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="15dp"
-                        app:srcCompat="@drawable/google_icon" />
-
-                    <TextView
-                        android:id="@+id/google_login_text"
-                        android:layout_width="wrap_content"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:text="Google"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                        android:background="@drawable/rounded_edit_text"
+                        >
 
-                <LinearLayout
-                    android:layout_width="298dp"
-                    android:layout_height="38dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="0.5"
-                    android:background="@drawable/social_btn"
-                    android:orientation="horizontal">
+                        <ImageView
 
-                    <ImageView
-                        android:id="@+id/fb_login"
-                        android:layout_width="58dp"
-                        android:layout_height="29dp"
-                        android:layout_gravity="center_vertical"
-                        app:srcCompat="@drawable/fb_icon" />
+                            android:layout_width="42dp"
+                            android:layout_height="29dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_margin="20dp"
+                            app:srcCompat="@drawable/google_icon" />
 
-                    <TextView
-                        android:id="@+id/fb_login_text"
-                        android:layout_width="110dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:text="Facebook"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/google_login_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="70dp"
+                            android:layout_weight="1"
+                            android:text="Google"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+                    </androidx.cardview.widget.CardView>
+
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

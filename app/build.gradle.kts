@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.play.services)
+    implementation(libs.play.services.auth)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
@@ -56,12 +57,13 @@ dependencies {
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
     implementation ("com.google.firebase:firebase-storage:20.0.0")
     implementation ("com.google.firebase:firebase-auth:21.0.0")
-
     implementation ("com.github.bumptech.glide:glide:4.16.0")
-    implementation ("com.google.android.gms:playservices-auth:20.7.0")
+
+
 
 
 
 
 
 }
+

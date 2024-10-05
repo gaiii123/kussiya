@@ -13,7 +13,8 @@ import com.example.Kussiya.R;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
+//IM/2021/074
+//IM/2021/097
 public class  breakfast_screen extends AppCompatActivity {
 
     RecyclerView recyclerView;
@@ -66,6 +67,7 @@ public class  breakfast_screen extends AppCompatActivity {
         adapter = new MyAdapter(breakfast_screen.this, dataList);
         recyclerView.setAdapter(adapter);
     }
+
 
     private void searchList(String text){
         List<DataClass> dataSearchList = new ArrayList<>();

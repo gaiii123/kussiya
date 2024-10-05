@@ -1,5 +1,6 @@
 package com.example.kussiya;
 
+//IM/2021/097
 public class DataClass {
 
     private String dataTitle;
