@@ -14,9 +14,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.Kussiya.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
 
 public class home extends AppCompatActivity {
 
@@ -40,7 +45,14 @@ public class home extends AppCompatActivity {
         imageViewBreakfast = findViewById(R.id.imageView_breakfast);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
+        ImageSlider imageSlider = findViewById(R.id.imageSlider);
+        ArrayList<SlideModel> slideModels = new ArrayList<>();
+        slideModels.add(new SlideModel(R.drawable.kiribath, ScaleTypes.FIT));
+        slideModels.add(new SlideModel(R.drawable.breakfast2, ScaleTypes.FIT));
+        slideModels.add(new SlideModel(R.drawable.breakfast3, ScaleTypes.FIT));
+        slideModels.add(new SlideModel(R.drawable.breakfast2, ScaleTypes.FIT));
 
+        imageSlider.setImageList(slideModels, ScaleTypes.FIT);
 
         // Set up the logout button click listener
         logoutButton.setOnClickListener(v -> {
