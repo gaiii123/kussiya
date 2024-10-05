@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.kussiya.breakfast_screen">
+    tools:context="com.example.kussiya.lunch_screen">
 
     <androidx.appcompat.widget.SearchView
         android:layout_width="match_parent"
@@ -19,6 +19,7 @@
         app:searchHintIcon="@null"
         app:queryHint="Search..."
         android:focusable="false"
+        app:closeIcon="@drawable/baseline_clear_24"
         app:searchIcon="@drawable/baseline_search_24"
         android:background="@drawable/search_bkg"/>
 
