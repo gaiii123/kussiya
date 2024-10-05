@@ -226,7 +226,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/bottom_backg"
+        android:background="@drawable/navbg"
         android:layout_marginTop="30dp"
         app:menu="@menu/bottom_menu"
         app:itemIconSize="40dp"
