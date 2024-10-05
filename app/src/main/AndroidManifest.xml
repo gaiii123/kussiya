@@ -33,7 +33,10 @@
         <activity android:name="com.example.kussiya.lunch_screen" />
         <activity android:name="com.example.kussiya.dinner_screen" />
         <activity android:name="com.example.kussiya.dessert_screen" />
-        <activity android:name="com.example.kussiya.DetailsActivity" />
+        <activity android:name="com.example.kussiya.DetailsActivity"
+            android:parentActivityName="com.example.kussiya.breakfast_screen "/>
+
+
         <activity
             android:name="com.example.kussiya.MainActivity"
             android:exported="true">

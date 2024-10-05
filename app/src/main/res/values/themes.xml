@@ -1,27 +1,26 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Kussiya" parent="Theme.Material3.Light.NoActionBar">
-        <!-- Primary brand color (Strawberry red theme). -->
-        <item name="colorPrimary">@color/Screen</item>
-        <item name="colorPrimaryVariant">@color/notification_card_color</item>
+    <style name="Base.Theme.Kussiya" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/lavender</item>
+        <item name="colorPrimaryVariant">@color/lavender</item>
         <item name="colorOnPrimary">@color/white</item>
-
-        <!-- Secondary brand color (Teal retained). -->
+        <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
-
-        <!-- Background and surface colors for light theme (mostly white and black). -->
-        <item name="android:colorBackground">@color/white</item>
-        <item name="colorSurface">@color/white</item>
-        <item name="colorOnSurface">@color/black</item>
-
-        <!-- Status bar color (Strawberry red variant). -->
-        <item name="android:statusBarColor">@color/notification_card_color</item>
-
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
 
-    <!-- Main application theme -->
     <style name="Theme.Kussiya" parent="Base.Theme.Kussiya" />
+
+    <style name="MyRatingBar" parent="Widget.AppCompat.RatingBar">
+        <!--non selected star color-->
+        <item name="colorControlNormal">#4D000000</item>
+        <!-- selected star color-->
+        <item name="colorControlActivated">@color/Screen</item>
+    </style>
+
 </resources>
