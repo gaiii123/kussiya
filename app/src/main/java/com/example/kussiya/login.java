@@ -2,13 +2,13 @@ package com.example.kussiya;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.Kussiya.R;
+import com.example.Kussiya.forgetPass;
 import com.google.firebase.auth.FirebaseAuth;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,7 +25,7 @@ public class login extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        emailField = findViewById(R.id.login_email);
+        emailField = findViewById(R.id.email);
         passwordField = findViewById(R.id.login_password);
         loginButton = findViewById(R.id.login_button);
 
@@ -68,6 +68,13 @@ public class login extends AppCompatActivity {
         signUpTextView.setOnClickListener(v -> {
             // Navigate to the signup activity
             Intent intent = new Intent(login.this, signup.class);
+            startActivity(intent);
+        });
+
+        TextView forgotpassTextView = findViewById(R.id.forgotpassword);
+        forgotpassTextView.setOnClickListener(v -> {
+            // Navigate to the signup activity
+            Intent intent = new Intent(login.this, forgetPass.class);
             startActivity(intent);
         });
 
