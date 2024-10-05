@@ -12,7 +12,8 @@ import android.view.animation.ScaleAnimation;
 import android.view.animation.Animation;
 
 import com.example.Kussiya.R;
-
+//IM/2021/069
+//IM/2021/041
 public class RateUs extends Dialog {
 
     private float userRate = 0;
