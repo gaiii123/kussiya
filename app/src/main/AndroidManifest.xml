@@ -23,6 +23,9 @@
         <activity android:name="com.example.kussiya.account" />
         <activity android:name="com.example.kussiya.notification" />
         <activity android:name="com.example.kussiya.breakfast_screen" />
+        <activity android:name="com.example.kussiya.lunch_screen" />
+        <activity android:name="com.example.kussiya.dinner_screen" />
+        <activity android:name="com.example.kussiya.dessert_screen" />
         <activity android:name="com.example.kussiya.DetailsActivity" />
         <activity
             android:name="com.example.kussiya.MainActivity"

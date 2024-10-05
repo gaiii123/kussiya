@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class  breakfast_screen extends AppCompatActivity {
+public class  dinner_screen extends AppCompatActivity {
 
     RecyclerView recyclerView;
     List<DataClass> dataList;
@@ -44,26 +44,24 @@ public class  breakfast_screen extends AppCompatActivity {
             }
         });
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(breakfast_screen.this, 1);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(dinner_screen.this, 1);
         recyclerView.setLayoutManager(gridLayoutManager);
         dataList = new ArrayList<>();
 
-        androidData = new DataClass("Kiribath", R.string.camera, "", R.drawable.kiribath);
+        androidData = new DataClass("Chicken fried rice", R.string.camera, "", R.drawable.rice);
         dataList.add(androidData);
 
-        androidData = new DataClass("Idi appa", R.string.recyclerview, "", R.drawable.idiappa);
+        androidData = new DataClass("Chicken koththu", R.string.recyclerview, "", R.drawable.koththu);
         dataList.add(androidData);
 
-        androidData = new DataClass("Noodles", R.string.date, "", R.drawable.noodles);
+        androidData = new DataClass("Pasta", R.string.recyclerview, "", R.drawable.pasta);
         dataList.add(androidData);
 
-        androidData = new DataClass("Parata", R.string.edit, "", R.drawable.parata);
+        androidData = new DataClass("Biriyani", R.string.edit, "", R.drawable.biriyani);
         dataList.add(androidData);
 
-        androidData = new DataClass("Rotti", R.string.rating, "", R.drawable.rotti);
-        dataList.add(androidData);
 
-        adapter = new MyAdapter(breakfast_screen.this, dataList);
+        adapter = new MyAdapter(dinner_screen.this, dataList);
         recyclerView.setAdapter(adapter);
     }
 
