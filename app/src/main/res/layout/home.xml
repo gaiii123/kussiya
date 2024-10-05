@@ -17,20 +17,10 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@color/Screen"
-        app:title="Hi,"
+        app:title="Hi"
         app:titleTextColor="@color/white"
         app:titleMarginStart="30dp"
         />
-
-
-    <Button
-        android:id="@+id/logout_button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Logout"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"/>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,7 +40,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:orientation="vertical">
+
 
                 <EditText
                     android:id="@+id/editTextText2"
@@ -59,14 +51,15 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="24dp"
-                    android:background="@drawable/white_g"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/rounded_edit_text"
                     android:drawableStart="@drawable/baseline_search_24"
+
                     android:drawablePadding="20dp"
                     android:ems="10"
                     android:hint="Search Here"
                     android:inputType="text"
                     android:padding="8dp" />
-
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -76,23 +69,19 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp">
 
-
                     <ImageView
-                        android:id="@+id/imageView6"
+                        android:id="@+id/imageView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/pudding"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:src="@drawable/bon_app_tit"
+                        tools:layout_editor_absoluteY="0dp" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="18dp"
                     android:text="Categories"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -105,6 +94,7 @@
                     android:orientation="horizontal">
 
                     <LinearLayout
+
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.5"
@@ -114,8 +104,9 @@
                             android:id="@+id/imageView_breakfast"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
+                            android:layout_margin="10dp"
                             android:layout_weight="1"
-                            tools:srcCompat="@tools:sample/avatars" />
+                            android:src="@drawable/breakfast" />
 
                         <TextView
                             android:id="@+id/textView_breakfast"
@@ -135,12 +126,14 @@
                             android:id="@+id/imageView_lunch"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            tools:srcCompat="@tools:sample/avatars" />
+                            android:layout_margin="10dp"
+                            android:src="@drawable/lunch" />
 
                         <TextView
                             android:id="@+id/textView_lunch"
                             android:layout_width="70dp"
                             android:layout_height="20dp"
+                            android:gravity="center"
                             android:text="Lunch" />
                     </LinearLayout>
 
@@ -154,12 +147,14 @@
                             android:id="@+id/imageView_dinner"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            tools:srcCompat="@tools:sample/avatars" />
+                            android:layout_margin="10dp"
+                            android:src="@drawable/dinner" />
 
                         <TextView
                             android:id="@+id/textView_dinner"
                             android:layout_width="70dp"
                             android:layout_height="20dp"
+                            android:gravity="center"
                             android:text="Dinner" />
                     </LinearLayout>
 
@@ -173,12 +168,14 @@
                             android:id="@+id/imageView_dessert"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            tools:srcCompat="@tools:sample/avatars" />
+                            android:layout_margin="10dp"
+                            android:src="@drawable/dessert" />
 
                         <TextView
                             android:id="@+id/textView_dessert"
                             android:layout_width="70dp"
                             android:layout_height="20dp"
+                            android:gravity="center"
                             android:text="Dessert" />
                     </LinearLayout>
 
@@ -195,6 +192,7 @@
                         android:id="@+id/textView_popular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
                         android:text="Popular Recipies"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -203,7 +201,7 @@
                         android:id="@+id/textView11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="180dp"
+                        android:layout_marginStart="160dp"
                         android:layout_weight="1"
                         android:text="See all"
                         android:textSize="15dp" />
@@ -228,7 +226,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/bottom_backg"
+        android:background="@drawable/navbg"
         android:layout_marginTop="30dp"
         app:menu="@menu/bottom_menu"
         app:itemIconSize="40dp"
