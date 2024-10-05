@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Kussiya" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.Kussiya" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/lavender</item>
         <item name="colorPrimaryVariant">@color/lavender</item>
@@ -15,5 +15,12 @@
     </style>
 
     <style name="Theme.Kussiya" parent="Base.Theme.Kussiya" />
+
+    <style name="MyRatingBar" parent="Widget.AppCompat.RatingBar">
+        <!--non selected star color-->
+        <item name="colorControlNormal">#4D000000</item>
+        <!-- selected star color-->
+        <item name="colorControlActivated">@color/Screen</item>
+    </style>
 
 </resources>

@@ -1,47 +1,48 @@
 package com.example.kussiya;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.view.View;
+import android.graphics.drawable.ColorDrawable;
 
 import com.example.Kussiya.R;
-import com.example.Kussiya.videoView;
+
+import java.util.Objects;
 
 public class DetailsActivity extends AppCompatActivity {
 
     TextView detailDesc, detailTitle;
     ImageView detailImage;
+    RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.example.Kussiya.R.layout.activity_details);
+        setContentView(R.layout.activity_details);
 
         detailDesc = findViewById(R.id.detailDesc);
         detailTitle = findViewById(R.id.detailTitle);
         detailImage = findViewById(R.id.detailImage);
+        ratingBar = findViewById(R.id.ratingBar);
 
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null){
-            detailDesc.setText(bundle.getInt("Desc"));
+        if (bundle != null) {
+            detailDesc.setText(bundle.getString("Desc"));
             detailImage.setImageResource(bundle.getInt("Image"));
             detailTitle.setText(bundle.getString("Title"));
         }
-        Button VidButton = findViewById(R.id.playvideo);
 
+        // Show rating dialog
+        RateUs rateUsDialog = new RateUs(DetailsActivity.this);
+        Objects.requireNonNull(rateUsDialog.getWindow()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+        rateUsDialog.setCancelable(false);
+        rateUsDialog.show();
+    }
 
-
-        // Set up the logout button click listener
-        VidButton.setOnClickListener(v -> {
-
-            // Navigate to the login activity
-            Intent intent = new Intent(DetailsActivity.this, videoView.class);
-            startActivity(intent);
-            finish(); // Close the home activity
-        });
+    public void submitStars(View view) {
+        System.out.println("Star amount: " + ratingBar.getRating());
     }
 }
