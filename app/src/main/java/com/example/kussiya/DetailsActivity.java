@@ -9,8 +9,10 @@ import android.view.View;
 import android.graphics.drawable.ColorDrawable;
 
 import com.example.Kussiya.R;
-
 import java.util.Objects;
+import com.example.Kussiya.videoView;
+//IM/2021/069
+//IM/2021/097
 
 public class DetailsActivity extends AppCompatActivity {
 
