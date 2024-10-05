@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/bottom_home"
         android:icon="@drawable/baseline_home_24"
-        android:title="Home"
+        android:title=""
 
         />
 
     <item
         android:id="@+id/bottom_add"
         android:icon="@drawable/baseline_add_circle_24"
-        android:title="Add" />
+        android:title="" />
 
     <item
         android:id="@+id/bottom_notification"
         android:icon="@drawable/baseline_notifications_24"
-        android:title="Notification" />
+        android:title="" />
 
     <item
         android:id="@+id/bottom_profile"
         android:icon="@drawable/baseline_account_circle_24"
-        android:title="Profile" />
+        android:title="" />
 </menu>
