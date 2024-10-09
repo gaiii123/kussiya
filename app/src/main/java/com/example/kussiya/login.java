@@ -2,14 +2,17 @@ package com.example.kussiya;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.example.Kussiya.R;
 import com.google.firebase.auth.FirebaseAuth;
+
+
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class login extends AppCompatActivity {
@@ -64,13 +67,19 @@ public class login extends AppCompatActivity {
         });
 
         // Set up the sign-up text click listener
-        TextView signUpTextView = findViewById(R.id.SignUp_textview);
-        signUpTextView.setOnClickListener(v -> {
-            // Navigate to the signup activity
+        TextView signupTextView = findViewById(R.id.SignUp_textview);
+        signupTextView.setOnClickListener(v -> {
             Intent intent = new Intent(login.this, signup.class);
             startActivity(intent);
         });
 
+
+        TextView forgotpassTextView = findViewById(R.id.forgotpassword);
+        forgotpassTextView.setOnClickListener(v -> {
+            // Navigate to the signup activity
+            Intent intent = new Intent(login.this, forgottenPassword1.class);
+            startActivity(intent);
+        });
 
     }
 
