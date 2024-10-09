@@ -20,7 +20,7 @@ public class bottomNavigationHelper {
                 return true;
             } else if (item.getItemId() == R.id.bottom_add) {
                 if (selectedItemId != R.id.bottom_add) {
-                    context.startActivity(new Intent(context, add_item.class));
+                    context.startActivity(new Intent(context, recipe_add.class));
                 }
                 return true;
             } else if (item.getItemId() == R.id.bottom_notification) {

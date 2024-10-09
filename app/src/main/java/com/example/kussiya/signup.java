@@ -2,22 +2,21 @@ package com.example.kussiya;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
+
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowCompat;
 
 import com.example.Kussiya.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -32,50 +31,78 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-//IM/2021/97
-//IM/2021/108
 
 public class signup extends AppCompatActivity {
 
     private EditText emailField, passwordField, confirmPasswordField, usernameField;
     private Button signupButton;
     private FirebaseAuth auth;
-
-
-
+    private GoogleSignInClient googleSignInClient;
 
     TextView name, mail;
 
+   /* private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if (result.getResultCode() == RESULT_OK) {
+                Task<GoogleSignInAccount> accountTask = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
+                try {
+                    GoogleSignInAccount signInAccount = accountTask.getResult(ApiException.class);
+                    AuthCredential authCredential = GoogleAuthProvider.getCredential(signInAccount.getIdToken(), null);
+                    auth.signInWithCredential(authCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                auth = FirebaseAuth.getInstance();
+                                Toast.makeText(signup.this, "Signed in successfully!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(signup.this, "Failed to sign in: " + task.getException(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
 
-
-
+                } catch (ApiException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    });*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+
+        // Enable edge-to-edge mode
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         setContentView(R.layout.signup);
 
         FirebaseApp.initializeApp(this);
 
+        // Log for debugging Firebase initialization
+        if (FirebaseApp.getApps(this).isEmpty()) {
+            Log.e("Signup", "Firebase initialization failed.");
+        } else {
+            Log.d("Signup", "Firebase initialized successfully.");
+        }
 
+        GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.client_id)) // Ensure client_id is correctly configured
+                .requestEmail()
+                .build();
+        googleSignInClient = GoogleSignIn.getClient(signup.this, options);
 
-
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        SignInButton signInButton = findViewById(R.id.google_login);
+        signInButton.setOnClickListener(view -> {
+            Intent intent = googleSignInClient.getSignInIntent();
+        //  activityResultLauncher.launch(intent);
         });
-
-
-
-
 
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance();
+        if (auth == null) {
+            Log.e("Signup", "FirebaseAuth initialization failed.");
+        }
 
         // Initialize UI elements
         usernameField = findViewById(R.id.username);
@@ -128,13 +155,17 @@ public class signup extends AppCompatActivity {
                 return;
             }
 
+            // Log the event before attempting user creation
+            Log.d("Signup", "Attempting to create user with email: " + email);
+
             // Create user in Firebase
             createUser(email, password);
         });
+
         // Set up the sign-up text click listener
         TextView LoginTextView = findViewById(R.id.textView8);
         LoginTextView.setOnClickListener(v -> {
-            // Navigate to the signup activity
+            // Navigate to the login activity
             Intent intent = new Intent(signup.this, login.class);
             startActivity(intent);
         });
@@ -145,18 +176,18 @@ public class signup extends AppCompatActivity {
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         // Sign-up successful
-                        FirebaseUser user = auth.getCurrentUser();
+                        Log.d("Signup", "User created successfully.");
                         Toast.makeText(signup.this, "User Registered Successfully", Toast.LENGTH_SHORT).show();
-                        // You can navigate the user to another activity, e.g., home page
+                        // Navigate the user to another activity, e.g., home page
                         Intent intent = new Intent(signup.this, home.class);
                         startActivity(intent);
                         finish();
                     } else {
                         // If sign-up fails, display a message to the user
+                        Log.e("Signup", "Registration failed: " + task.getException().getMessage());
                         Toast.makeText(signup.this, "Registration Failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
     }
-
 
 }

@@ -7,13 +7,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.Kussiya.R;
-import com.example.Kussiya.forgetPass;
 import com.google.firebase.auth.FirebaseAuth;
-//IM/2021/074
-//IM/2021/097
+
+
+
+import androidx.appcompat.app.AppCompatActivity;
+
 public class login extends AppCompatActivity {
 
     private EditText emailField, passwordField;
@@ -27,7 +28,7 @@ public class login extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        emailField = findViewById(R.id.email);
+        emailField = findViewById(R.id.login_email);
         passwordField = findViewById(R.id.login_password);
         loginButton = findViewById(R.id.login_button);
 
@@ -66,20 +67,19 @@ public class login extends AppCompatActivity {
         });
 
         // Set up the sign-up text click listener
-        TextView signUpTextView = findViewById(R.id.SignUp_textview);
-        signUpTextView.setOnClickListener(v -> {
-            // Navigate to the signup activity
+        TextView signupTextView = findViewById(R.id.SignUp_textview);
+        signupTextView.setOnClickListener(v -> {
             Intent intent = new Intent(login.this, signup.class);
             startActivity(intent);
         });
 
+
         TextView forgotpassTextView = findViewById(R.id.forgotpassword);
         forgotpassTextView.setOnClickListener(v -> {
             // Navigate to the signup activity
-            Intent intent = new Intent(login.this, forgetPass.class);
+            Intent intent = new Intent(login.this, forgottenPassword1.class);
             startActivity(intent);
         });
-
 
     }
 

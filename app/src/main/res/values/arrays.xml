@@ -1,0 +1,8 @@
+<resources>
+    <string-array name="recipe_categories">
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+        <item>Dessert</item>
+    </string-array>
+</resources>
