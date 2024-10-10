@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/verificationMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A verification email has been sent to your email address. Please check your inbox and verify your email."
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        tools:context=".VerifyEmailActivity"/>
+
+    <Button
+        android:id="@+id/checkVerificationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="91dp"
+        android:text="Check Verification Status"
+        android:backgroundTint="@color/Screen"/>
+
+    <TextView
+        android:id="@+id/alternateLoginText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkVerificationButton"
+        android:layout_marginTop="37dp"
+        android:text="Already verified? You can log in."
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/alternateLoginText"
+        android:layout_marginTop="27dp"
+        android:text="Go to Login"
+        android:backgroundTint="@color/Screen"/>
+</RelativeLayout>

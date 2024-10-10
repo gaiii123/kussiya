@@ -10,18 +10,29 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@color/Screen"
-        app:title="Hi"
         app:titleTextColor="@color/white"
         app:titleMarginStart="30dp"
         />
 
+
+    <TextView
+        android:id="@+id/toolbar_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hi"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="20dp"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

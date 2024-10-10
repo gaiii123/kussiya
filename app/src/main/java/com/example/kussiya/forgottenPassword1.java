@@ -57,6 +57,8 @@ public class forgottenPassword1 extends AppCompatActivity {
             auth.sendPasswordResetEmail(email).addOnCompleteListener(resetTask -> {
                 if (resetTask.isSuccessful()) {
                     Toast.makeText(forgottenPassword1.this, "Reset link sent to your email", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(forgottenPassword1.this, login.class);
+                    startActivity(intent);
                 } else {
                     // Handle errors, e.g., if the email is not registered (Firebase won't reveal the exact reason)
                     Toast.makeText(forgottenPassword1.this, "Failed to send reset link. Please try again.", Toast.LENGTH_SHORT).show();
