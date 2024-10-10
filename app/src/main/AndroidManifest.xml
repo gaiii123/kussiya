@@ -8,7 +8,7 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -21,19 +21,20 @@
         <activity
             android:name=".RecipeItemActivity"
             android:exported="false" />
-        <activity
-            android:name=".RecipeScreen"
-            android:exported="false" />
+
         <activity android:name="com.example.kussiya.home" />
         <activity android:name="com.example.kussiya.login" />
-        <activity android:name="com.example.kussiya.signup" android:exported="true"/>
-
+        <activity
+            android:name="com.example.kussiya.signup"
+            android:exported="true" />
         <activity android:name="com.example.kussiya.account" />
         <activity android:name="com.example.kussiya.recipe_add" />
         <activity android:name="com.example.kussiya.notification" />
         <activity android:name="com.example.kussiya.RecipeCategoryActivity" />
         <activity android:name="com.example.kussiya.forgottenPassword1" />
         <activity android:name="com.example.kussiya.forgottenPassword2" />
+        <activity android:name="com.example.kussiya.VerifyEmailActivity" />
+        <activity android:name="com.example.kussiya.RecipeScreen" />
         <activity
             android:name="com.example.kussiya.MainActivity"
             android:exported="true">
