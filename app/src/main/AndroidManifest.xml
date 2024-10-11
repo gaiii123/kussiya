@@ -14,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kussiya"
         tools:targetApi="31">
-
+        <activity
+            android:name=".VideoViewActivity"
+            android:exported="false" />
         <activity
             android:name="com.example.kussiya.EditRecipeActivity"
             android:exported="false" />
@@ -36,7 +38,6 @@
         <activity android:name="com.example.kussiya.RecipeScreen" />
         <activity android:name="com.example.kussiya.FavouritesActivity" />
         <activity android:name="com.example.kussiya.RecipeViewActivity" />
-        <activity android:name="com.example.kussiya.VideoViewActivity" />
         <activity
             android:name="com.example.kussiya.MainActivity"
             android:exported="true">
