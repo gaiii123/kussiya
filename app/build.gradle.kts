@@ -92,5 +92,6 @@ dependencies {
     implementation ("androidx.fragment:fragment-ktx:1.5.0")
 
     implementation ("org.mindrot:jbcrypt:0.4")
+    implementation ("com.squareup.picasso:picasso:2.8")
 
 }

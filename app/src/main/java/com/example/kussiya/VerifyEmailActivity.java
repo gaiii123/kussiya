@@ -2,6 +2,7 @@ package com.example.kussiya;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,12 +16,14 @@ public class VerifyEmailActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_email);
 
         auth = FirebaseAuth.getInstance();
+
 
         // Add a button to refresh and check if the email is verified
         Button checkVerificationButton = findViewById(R.id.checkVerificationButton);
@@ -40,5 +43,13 @@ public class VerifyEmailActivity extends AppCompatActivity {
                 });
             }
         });
+        Button loginButtonVerify = findViewById(R.id.loginButtonVerify);
+        loginButtonVerify.setOnClickListener(v -> {
+            // Navigate to the signup activity
+            Intent intent = new Intent(VerifyEmailActivity.this, login.class);
+            startActivity(intent);
+        });
     }
+
+
 }

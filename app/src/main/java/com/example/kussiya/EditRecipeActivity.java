@@ -1,10 +1,8 @@
 package com.example.kussiya;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,15 +28,15 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.IOException;
-
 public class EditRecipeActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int PICK_VIDEO_REQUEST = 2;
 
     private ImageView recipeImage;
-    private Button uploadImageButton, submitRecipeButton;
-    private Uri imageUri;
+    private VideoView recipeVideo;
+    private Button uploadImageButton, uploadVideoButton, submitRecipeButton;
+    private Uri imageUri, videoUri;
     private EditText recipeNameInput, recipeDescription;
     private Spinner tc_category;
     private FirebaseAuth mAuth;
@@ -46,15 +45,18 @@ public class EditRecipeActivity extends AppCompatActivity {
 
     private String recipeId;
     private String currentImageUrl;
+    private String currentVideoUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_add);
+        setContentView(R.layout.activity_edit_recipe);
 
         // Initialize UI components
         recipeImage = findViewById(R.id.imageView3);
-        uploadImageButton = findViewById(R.id.addbutton3);
+        recipeVideo = findViewById(R.id.video);
+        uploadImageButton = findViewById(R.id.addbuttonimage);
+        uploadVideoButton = findViewById(R.id.addbuttonvideo);
         submitRecipeButton = findViewById(R.id.upload_recipe_button4);
         recipeNameInput = findViewById(R.id.titleTxt);
         recipeDescription = findViewById(R.id.tv_description);
@@ -65,19 +67,16 @@ public class EditRecipeActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference("recipes");
         mStorage = FirebaseStorage.getInstance().getReference("recipe_media");
 
-        // Initialize Spinner for categories
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.recipe_categories, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        tc_category.setAdapter(adapter);
+        // Get the recipeId passed from the previous activity
+        recipeId = getIntent().getStringExtra("recipeId");
 
-        // Get recipe ID from the intent
-        recipeId = getIntent().getStringExtra("RECIPE_ID");
-        loadRecipeDetails(recipeId);
+        // Populate existing recipe data
+        loadRecipeDetails();
 
-        // Set listeners for buttons
+        // Set listeners for selecting images or videos
         uploadImageButton.setOnClickListener(v -> openImageChooser());
-        submitRecipeButton.setOnClickListener(v -> submitUpdatedRecipe());
+        uploadVideoButton.setOnClickListener(v -> openVideoChooser());
+        submitRecipeButton.setOnClickListener(v -> updateRecipe());
     }
 
     private void openImageChooser() {
@@ -87,78 +86,134 @@ public class EditRecipeActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select Recipe Image"), PICK_IMAGE_REQUEST);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            imageUri = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                recipeImage.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    private void openVideoChooser() {
+        Intent intent = new Intent();
+        intent.setType("video/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Recipe Video"), PICK_VIDEO_REQUEST);
     }
 
-    private void loadRecipeDetails(String recipeId) {
+    private void loadRecipeDetails() {
+        // Fetch recipe details from Firebase to allow the user to edit them
         mDatabase.child(recipeId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    Recipe recipe = dataSnapshot.getValue(Recipe.class);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Recipe recipe = snapshot.getValue(Recipe.class);
+
                     if (recipe != null) {
                         recipeNameInput.setText(recipe.getRecipeName());
                         recipeDescription.setText(recipe.getDescription());
+
+                        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(EditRecipeActivity.this,
+                                R.array.recipe_categories, android.R.layout.simple_spinner_item);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        tc_category.setAdapter(adapter);
+
+                        // Set category
+                        int spinnerPosition = adapter.getPosition(recipe.getCategory());
+                        tc_category.setSelection(spinnerPosition);
+
                         currentImageUrl = recipe.getImageUrl();
+                        currentVideoUrl = recipe.getVideoUrl();
 
-                        // Load image using Glide
-                        Glide.with(EditRecipeActivity.this).load(currentImageUrl).into(recipeImage);
+                        // Load image if available
+                        if (currentImageUrl != null && !currentImageUrl.isEmpty()) {
+                            Glide.with(EditRecipeActivity.this).load(currentImageUrl).into(recipeImage);
+                        } else {
+                            recipeImage.setImageResource(R.drawable.placeholder);  // Placeholder if no image
+                        }
 
-                        // Set spinner category
-                        ArrayAdapter<CharSequence> adapter = (ArrayAdapter<CharSequence>) tc_category.getAdapter();
-                        tc_category.setSelection(adapter.getPosition(recipe.getCategory()));
+                        // Load video if available
+                        if (currentVideoUrl != null && !currentVideoUrl.isEmpty()) {
+                            Toast.makeText(EditRecipeActivity.this, "Video available: " + currentVideoUrl, Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(EditRecipeActivity.this, "Failed to load recipe details.", Toast.LENGTH_SHORT).show();
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(EditRecipeActivity.this, "Failed to load recipe", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-
-    private void submitUpdatedRecipe() {
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null) {
-            String recipeName = recipeNameInput.getText().toString().trim();
-            String description = recipeDescription.getText().toString().trim();
-            String category = tc_category.getSelectedItem().toString();
-
-            if (imageUri != null) {
-                // Create a reference for new image upload
-                StorageReference imageRef = mStorage.child(user.getUid() + "/images/" + System.currentTimeMillis() + ".jpg");
-                imageRef.putFile(imageUri).addOnSuccessListener(taskSnapshot ->
-                        imageRef.getDownloadUrl().addOnSuccessListener(imageUrl -> updateRecipeInDatabase(recipeName, description, category, imageUrl.toString()))
-                ).addOnFailureListener(e -> Toast.makeText(EditRecipeActivity.this, "Failed to upload image.", Toast.LENGTH_SHORT).show());
-            } else {
-                // Update without uploading a new image
-                updateRecipeInDatabase(recipeName, description, category, currentImageUrl);
-            }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            imageUri = data.getData();
+            recipeImage.setImageURI(imageUri);  // Update image preview
+        } else if (requestCode == PICK_VIDEO_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            videoUri = data.getData();
+            recipeImage.setImageResource(R.drawable.placeholder);  // Show a placeholder image for video
+            Toast.makeText(this, "Video selected: " + videoUri.toString(), Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void updateRecipeInDatabase(String recipeName, String description, String category, String imageUrl) {
-        Recipe updatedRecipe = new Recipe(recipeId, mAuth.getUid(), recipeName, description, imageUrl, category);
+    private void updateRecipe() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String userId = currentUser.getUid();
+        String recipeName = recipeNameInput.getText().toString().trim();
+        String description = recipeDescription.getText().toString().trim();
+        String category = tc_category.getSelectedItem().toString();
+
+        // Disable submit button to prevent multiple clicks
+        submitRecipeButton.setEnabled(false);
+
+        // Upload image if available
+        if (imageUri != null) {
+            StorageReference imageRef = mStorage.child(userId + "/images/" + System.currentTimeMillis() + ".jpg");
+            imageRef.putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
+                imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String uploadedImageUrl = uri.toString();
+                    if (videoUri != null) {
+                        uploadVideo(userId, recipeName, description, uploadedImageUrl, category);
+                    } else {
+                        saveUpdatedRecipe(recipeId, userId, recipeName, description, uploadedImageUrl, category, currentVideoUrl);
+                    }
+                });
+            }).addOnFailureListener(e -> {
+                Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT).show();
+                submitRecipeButton.setEnabled(true);
+            });
+        } else if (videoUri != null) {
+            uploadVideo(userId, recipeName, description, currentImageUrl, category);
+        } else {
+            // No new media selected, just update text fields
+            saveUpdatedRecipe(recipeId, userId, recipeName, description, currentImageUrl, category, currentVideoUrl);
+        }
+    }
+
+    private void uploadVideo(String userId, String recipeName, String description, String imageUrl, String category) {
+        StorageReference videoRef = mStorage.child(userId + "/videos/" + System.currentTimeMillis() + ".mp4");
+        videoRef.putFile(videoUri).addOnSuccessListener(taskSnapshot -> {
+            videoRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                String uploadedVideoUrl = uri.toString();
+                saveUpdatedRecipe(recipeId, userId, recipeName, description, imageUrl, category, uploadedVideoUrl);
+            });
+        }).addOnFailureListener(e -> {
+            Toast.makeText(this, "Failed to upload video", Toast.LENGTH_SHORT).show();
+            submitRecipeButton.setEnabled(true);
+        });
+    }
+
+    private void saveUpdatedRecipe(String recipeId, String userId, String recipeName, String description, String imageUrl, String category, String videoUrl) {
+        Recipe updatedRecipe = new Recipe(recipeId, userId, recipeName, description, imageUrl, category, videoUrl);
         mDatabase.child(recipeId).setValue(updatedRecipe).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Toast.makeText(EditRecipeActivity.this, "Recipe updated successfully", Toast.LENGTH_SHORT).show();
-                finish();
+                Toast.makeText(this, "Recipe updated successfully", Toast.LENGTH_SHORT).show();
+                finish();  // Go back to the previous screen
             } else {
-                Toast.makeText(EditRecipeActivity.this, "Failed to update recipe", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Failed to update recipe", Toast.LENGTH_SHORT).show();
             }
+            submitRecipeButton.setEnabled(true);  // Re-enable button
         });
     }
 }

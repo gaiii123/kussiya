@@ -7,36 +7,40 @@ public class Recipe {
     private String description;
     private String imageUrl;
     private String category;
+    private String videoUrl; // <-- Add category field
 
+    // Default constructor
     public Recipe() {
-        // Default constructor required for calls to DataSnapshot.getValue(Recipe.class)
     }
 
-    public Recipe(String recipeId, String userId, String recipeName, String description, String imageUrl, String category) {
+
+    // Parameterized constructor
+    public Recipe(String recipeId, String userId, String recipeName, String description, String imageUrl, String category, String videoUrl) {
         this.recipeId = recipeId;
         this.userId = userId;
         this.recipeName = recipeName;
         this.description = description;
         this.imageUrl = imageUrl;
         this.category = category;
+        this.videoUrl = videoUrl;
     }
 
-    // Getters and Setters
+    // Getter and Setter for category
+    public String getCategory() {
+        return category;
+    }
 
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    // Other getters and setters
     public String getRecipeId() {
         return recipeId;
     }
 
     public void setRecipeId(String recipeId) {
         this.recipeId = recipeId;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public String getRecipeName() {
@@ -63,11 +67,19 @@ public class Recipe {
         this.imageUrl = imageUrl;
     }
 
-    public String getCategory() {
-        return category;
+    public String getVideoUrl() {
+        return videoUrl;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
