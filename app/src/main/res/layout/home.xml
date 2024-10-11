@@ -55,22 +55,19 @@
                 android:orientation="vertical">
 
 
-                <EditText
-                    android:id="@+id/editTextText2"
+                <androidx.appcompat.widget.SearchView
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="24dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="24dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/rounded_edit_text"
-                    android:drawableStart="@drawable/baseline_search_24"
-
-                    android:drawablePadding="20dp"
-                    android:ems="10"
-                    android:hint="Search Here"
-                    android:inputType="text"
-                    android:padding="8dp" />
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:id="@+id/search"
+                    app:iconifiedByDefault="false"
+                    app:searchHintIcon="@null"
+                    app:queryHint="Search..."
+                    android:focusable="false"
+                    app:searchIcon="@drawable/baseline_search_24"
+                    android:background="@drawable/search_bkg"/>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -212,26 +209,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="18dp"
-                        android:text="Popular Recipies"
+                        android:text="All Recipies"
                         android:textSize="20sp"
                         android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/textView11"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="160dp"
-                        android:layout_weight="1"
-                        android:text="See all"
-                        android:textSize="15dp" />
 
 
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/popularRecyclerView"
+                    android:id="@+id/AllRecyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:layout_marginTop="10dp"
                     android:paddingStart="12dp" />
 
