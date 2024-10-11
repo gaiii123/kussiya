@@ -32,10 +32,11 @@ import java.io.IOException;
 public class recipe_add extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
+    private static final int PICK_VIDEO_REQUEST = 2; // New constant for video selection
 
     private ImageView recipeImage;
-    private Button uploadImageButton, submitRecipeButton;
-    private Uri imageUri;
+    private Button uploadImageButton, submitRecipeButton; // Added uploadVideoButton
+    private Uri mediaUri; // Changed from imageUri to mediaUri to accommodate both images and videos
     private EditText recipeNameInput, recipeDescription;
     private Spinner tc_category; // Spinner for categories
     private FirebaseAuth mAuth;
@@ -73,6 +74,7 @@ public class recipe_add extends AppCompatActivity {
 
         // Set listeners for buttons
         uploadImageButton.setOnClickListener(v -> openImageChooser());
+
         submitRecipeButton.setOnClickListener(v -> submitRecipe());
     }
 
@@ -83,34 +85,51 @@ public class recipe_add extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select Recipe Image"), PICK_IMAGE_REQUEST);
     }
 
+    private void openVideoChooser() { // New method to open video chooser
+        Intent intent = new Intent();
+        intent.setType("video/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Recipe Video"), PICK_VIDEO_REQUEST);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            imageUri = data.getData();
+            mediaUri = data.getData();
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), mediaUri);
                 recipeImage.setImageBitmap(bitmap); // Display the image
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else if (requestCode == PICK_VIDEO_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) { // New case for video selection
+            mediaUri = data.getData();
+            recipeImage.setImageResource(R.drawable.placeholder); // Display a placeholder for video
+            Toast.makeText(this, "Video selected: " + mediaUri.toString(), Toast.LENGTH_SHORT).show(); // Notify the user
         }
     }
 
     private void submitRecipe() {
         FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null && imageUri != null) {
+        if (user != null && mediaUri != null) { // Changed from imageUri to mediaUri
             String userId = user.getUid();
             String recipeName = recipeNameInput.getText().toString().trim();
             String description = recipeDescription.getText().toString().trim();
             String category = tc_category.getSelectedItem().toString(); // Get selected category
 
-            // Create a reference for image upload
-            StorageReference imageRef = mStorage.child(userId + "/images/" + System.currentTimeMillis() + ".jpg");
-            imageRef.putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
-                imageRef.getDownloadUrl().addOnSuccessListener(imageUrl -> {
+            // Create a reference for media upload
+            StorageReference mediaRef;
+            if (mediaUri.toString().contains("video")) { // Check if the selected media is a video
+                mediaRef = mStorage.child(userId + "/videos/" + System.currentTimeMillis() + ".mp4"); // Video reference
+            } else {
+                mediaRef = mStorage.child(userId + "/images/" + System.currentTimeMillis() + ".jpg"); // Image reference
+            }
+
+            mediaRef.putFile(mediaUri).addOnSuccessListener(taskSnapshot -> {
+                mediaRef.getDownloadUrl().addOnSuccessListener(mediaUrl -> {
                     String recipeId = mDatabase.push().getKey();
-                    Recipe recipe = new Recipe(recipeId, userId, recipeName, description, imageUrl.toString(), category); // Removed isFavorite
+                    Recipe recipe = new Recipe(recipeId, userId, recipeName, description, mediaUrl.toString(), category); // Use mediaUrl
 
                     if (recipeId != null) {
                         mDatabase.child(recipeId).setValue(recipe).addOnCompleteListener(task -> {
@@ -123,10 +142,9 @@ public class recipe_add extends AppCompatActivity {
                         });
                     }
                 });
-            }).addOnFailureListener(e -> Toast.makeText(recipe_add.this, "Failed to upload image.", Toast.LENGTH_SHORT).show());
+            }).addOnFailureListener(e -> Toast.makeText(recipe_add.this, "Failed to upload media.", Toast.LENGTH_SHORT).show());
         } else {
-            Toast.makeText(recipe_add.this, "Please select an image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(recipe_add.this, "Please select an image or video", Toast.LENGTH_SHORT).show();
         }
     }
-
 }

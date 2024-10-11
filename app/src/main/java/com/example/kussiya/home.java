@@ -1,17 +1,14 @@
 package com.example.kussiya;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowCompat;
-
 import com.example.Kussiya.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,7 +18,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class home extends AppCompatActivity {
 
-    private Button logoutButton;
     private FirebaseAuth auth;
     private ImageView imageViewBreakfast;
     private ImageView imageViewLunch;
