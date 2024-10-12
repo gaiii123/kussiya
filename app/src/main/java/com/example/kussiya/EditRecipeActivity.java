@@ -28,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.List;
+
 public class EditRecipeActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -46,7 +48,9 @@ public class EditRecipeActivity extends AppCompatActivity {
     private String recipeId;
     private String currentImageUrl;
     private String currentVideoUrl;
-
+    private float rating;
+    private int rateCount;
+    private List<String> reviews;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +108,9 @@ public class EditRecipeActivity extends AppCompatActivity {
                     if (recipe != null) {
                         recipeNameInput.setText(recipe.getRecipeName());
                         recipeDescription.setText(recipe.getDescription());
+                        rating = recipe.getRating();
+                        rateCount = recipe.getRateCount();
+                        reviews = recipe.getReviews();
 
                         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(EditRecipeActivity.this,
                                 R.array.recipe_categories, android.R.layout.simple_spinner_item);
@@ -173,9 +180,9 @@ public class EditRecipeActivity extends AppCompatActivity {
                 imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
                     String uploadedImageUrl = uri.toString();
                     if (videoUri != null) {
-                        uploadVideo(userId, recipeName, description, uploadedImageUrl, category);
+                        uploadVideo(userId, recipeName, description, uploadedImageUrl, category,rating,rateCount,reviews);
                     } else {
-                        saveUpdatedRecipe(recipeId, userId, recipeName, description, uploadedImageUrl, category, currentVideoUrl);
+                        saveUpdatedRecipe(recipeId, userId, recipeName, description, uploadedImageUrl, category, currentVideoUrl,rating,rateCount,reviews);
                     }
                 });
             }).addOnFailureListener(e -> {
@@ -183,19 +190,19 @@ public class EditRecipeActivity extends AppCompatActivity {
                 submitRecipeButton.setEnabled(true);
             });
         } else if (videoUri != null) {
-            uploadVideo(userId, recipeName, description, currentImageUrl, category);
+            uploadVideo(userId, recipeName, description, currentImageUrl, category,rating,rateCount,reviews);
         } else {
             // No new media selected, just update text fields
-            saveUpdatedRecipe(recipeId, userId, recipeName, description, currentImageUrl, category, currentVideoUrl);
+            saveUpdatedRecipe(recipeId, userId, recipeName, description, currentImageUrl, category, currentVideoUrl,rating,rateCount,reviews);
         }
     }
 
-    private void uploadVideo(String userId, String recipeName, String description, String imageUrl, String category) {
+    private void uploadVideo(String userId, String recipeName, String description, String imageUrl, String category, float rating, int rateCount, List<String> reviews) {
         StorageReference videoRef = mStorage.child(userId + "/videos/" + System.currentTimeMillis() + ".mp4");
         videoRef.putFile(videoUri).addOnSuccessListener(taskSnapshot -> {
             videoRef.getDownloadUrl().addOnSuccessListener(uri -> {
                 String uploadedVideoUrl = uri.toString();
-                saveUpdatedRecipe(recipeId, userId, recipeName, description, imageUrl, category, uploadedVideoUrl);
+                saveUpdatedRecipe(recipeId, userId, recipeName, description, imageUrl, category, uploadedVideoUrl,rating,rateCount,reviews);
             });
         }).addOnFailureListener(e -> {
             Toast.makeText(this, "Failed to upload video", Toast.LENGTH_SHORT).show();
@@ -203,8 +210,8 @@ public class EditRecipeActivity extends AppCompatActivity {
         });
     }
 
-    private void saveUpdatedRecipe(String recipeId, String userId, String recipeName, String description, String imageUrl, String category, String videoUrl) {
-        Recipe updatedRecipe = new Recipe(recipeId, userId, recipeName, description, imageUrl, category, videoUrl);
+    private void saveUpdatedRecipe(String recipeId, String userId, String recipeName, String description, String imageUrl, String category, String videoUrl,float rating,int rateCount,List<String> reviews) {
+        Recipe updatedRecipe = new Recipe(recipeId, userId, recipeName, description, imageUrl, category, videoUrl,rating,rateCount,reviews);
         mDatabase.child(recipeId).setValue(updatedRecipe).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(this, "Recipe updated successfully", Toast.LENGTH_SHORT).show();

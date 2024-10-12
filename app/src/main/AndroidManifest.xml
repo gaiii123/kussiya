@@ -30,10 +30,10 @@
         <activity android:name="com.example.kussiya.forgottenPassword1" />
         <activity android:name="com.example.kussiya.forgottenPassword2" />
         <activity android:name="com.example.kussiya.VerifyEmailActivity" />
-        <activity android:name="com.example.kussiya.RecipeScreen" />
         <activity android:name="com.example.kussiya.FavouritesActivity" />
         <activity android:name="com.example.kussiya.RecipeViewActivity" />
         <activity android:name="com.example.kussiya.EditRecipeActivity" />
+        <activity android:name="com.example.kussiya.review" />
         <activity
             android:name="com.example.kussiya.MainActivity"
             android:exported="true">

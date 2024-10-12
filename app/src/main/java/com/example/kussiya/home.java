@@ -22,6 +22,7 @@ public class home extends AppCompatActivity {
     private ImageView imageViewBreakfast;
     private ImageView imageViewLunch;
     private ImageView imageViewDinner;
+    private ImageView imageViewDessert;
     BottomNavigationView bottomNavigationView;
     private DatabaseReference userRef;
     private TextView toolbarTextView;
@@ -40,6 +41,7 @@ public class home extends AppCompatActivity {
         imageViewBreakfast = findViewById(R.id.imageView_breakfast);
         imageViewLunch = findViewById(R.id.imageView_lunch);
         imageViewDinner = findViewById(R.id.imageView_dinner);
+        imageViewDessert = findViewById(R.id.imageView_dessert);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         toolbarTextView=findViewById(R.id.toolbar_textView);
 
@@ -83,7 +85,11 @@ public class home extends AppCompatActivity {
             intent.putExtra("CATEGORY", "Dinner");
             startActivity(intent);
         });
-
+        imageViewDessert.setOnClickListener(v -> {
+            Intent intent = new Intent(home.this, RecipeCategoryActivity.class);
+            intent.putExtra("CATEGORY", "Dessert");
+            startActivity(intent);
+        });
         // Set up BottomNavigationView
         bottomNavigationHelper.setupBottomNavigation(this, bottomNavigationView, R.id.bottom_home);
 

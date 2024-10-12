@@ -28,6 +28,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class recipe_add extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -119,6 +122,7 @@ public class recipe_add extends AppCompatActivity {
         String description = recipeDescription.getText().toString().trim();
         String category = tc_category.getSelectedItem().toString();
 
+
         // Disable submit button to prevent multiple clicks
         submitRecipeButton.setEnabled(false);
 
@@ -158,6 +162,11 @@ public class recipe_add extends AppCompatActivity {
 
     private void saveRecipe(String recipeId, String userId, String recipeName, String description, String imageUrl, String category, String videoUrl) {
         // Correctly mapped Recipe object creation
+        float  rating = 0.0F;
+        int rateCount = 0;
+        List<String> reviews = new ArrayList<>();
+
+
         Recipe newRecipe = new Recipe(
                 recipeId,       // Correct recipeId
                 userId,         // Correct userId (currentUser's ID)
@@ -165,7 +174,10 @@ public class recipe_add extends AppCompatActivity {
                 description,    // Correct description
                 imageUrl,       // Correct image URL (or null if no image)
                 category,       // Correct category
-                videoUrl        // Correct video URL (or null if no video)
+                videoUrl,        // Correct video URL (or null if no video)
+                rating,
+                rateCount,
+                reviews
         );
 
         // Save the new recipe to Firebase
