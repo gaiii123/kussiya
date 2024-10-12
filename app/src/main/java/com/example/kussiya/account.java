@@ -11,11 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 import com.example.Kussiya.R;
@@ -42,15 +41,19 @@ public class account extends AppCompatActivity {
     private DatabaseReference userRef, recipesRef;
     private TextView accountTextView;
     private BottomNavigationView bottomNavigationView;
-    private RecyclerView myRecipesRecyclerView;
-    private ArrayList<Recipe> myRecipesList;
+
+
     private RecipiesAdapter myRecipesAdapter;
     private ImageView imageViewUser, imageViewAdd;
     private Uri imageUri; // For the selected image URI
     private StorageReference storageRef;
     private FirebaseUser user;
     private String userId;
-    private Button FavouriteButton;// Declare userId as a member variable
+    private Button FavouriteButton, MyRecipeViewButton;
+
+    private ArrayList<Recipe> myRecipeList;
+    private DatabaseReference mDatabase;
+    private String currentUserId;
 
 
     @Override
@@ -63,11 +66,12 @@ public class account extends AppCompatActivity {
         logoutButton = findViewById(R.id.logout_button2);
         accountTextView = findViewById(R.id.account_textView);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        myRecipesRecyclerView = findViewById(R.id.myRecipesRecyclerView);
+
         imageViewUser = findViewById(R.id.imageView_user);
         imageViewAdd = findViewById(R.id.imageView_add);
         storageRef = FirebaseStorage.getInstance().getReference("profile_images");
         FavouriteButton = findViewById(R.id.favourite_button); // Ensure you have this button in your layout
+        MyRecipeViewButton=findViewById(R.id.myrecipe);
 
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
@@ -92,33 +96,23 @@ public class account extends AppCompatActivity {
         }
 
         // Setup RecyclerView
-        myRecipesList = new ArrayList<>();
-        if (user != null) {
-            myRecipesAdapter = new RecipiesAdapter(myRecipesList, userId);
-            myRecipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-            myRecipesRecyclerView.setAdapter(myRecipesAdapter);
 
-            // Retrieve user's recipes from Firebase
-            recipesRef = FirebaseDatabase.getInstance().getReference("recipes");
-            recipesRef.orderByChild("userId").equalTo(userId).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    myRecipesList.clear();
-                    for (DataSnapshot recipeSnapshot : snapshot.getChildren()) {
-                        Recipe recipe = recipeSnapshot.getValue(Recipe.class);
-                        if (recipe != null) {
-                            myRecipesList.add(recipe);
-                        }
-                    }
-                    myRecipesAdapter.notifyDataSetChanged();
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    // Handle possible errors
-                }
-            });
-        }
+
+        // Get current user ID
+        currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        // Initialize adapter
+
+
+        // Reference to the "recipes" node in Firebase
+        mDatabase = FirebaseDatabase.getInstance().getReference("recipes");
+
+
+        MyRecipeViewButton.setOnClickListener(v -> {
+            Intent intent = new Intent(account.this, MyRecipeView.class); // Corrected here
+            startActivity(intent);
+        });
 
         FavouriteButton.setOnClickListener(v -> {
             Intent intent = new Intent(account.this, FavouritesActivity.class); // Corrected here

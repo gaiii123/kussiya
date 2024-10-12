@@ -4,17 +4,28 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.Kussiya.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class home extends AppCompatActivity {
 
@@ -25,6 +36,11 @@ public class home extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     private DatabaseReference userRef;
     private TextView toolbarTextView;
+
+    private RecyclerView allRecipeRecyclerView;
+    private RecipiesAdapter myRecipesAdapter;
+    private List<Recipe> myRecipeList;
+    private String currentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +58,17 @@ public class home extends AppCompatActivity {
         imageViewDinner = findViewById(R.id.imageView_dinner);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         toolbarTextView=findViewById(R.id.toolbar_textView);
+        allRecipeRecyclerView = findViewById(R.id.allrecipeRecyclerView);
+        myRecipeList = new ArrayList<>();
+        currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        // Setup RecyclerView
+        myRecipesAdapter = new RecipiesAdapter(myRecipeList, currentUserId);
+        allRecipeRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        allRecipeRecyclerView.setAdapter(myRecipesAdapter);
+
+        // Fetch recipes from Firebase
+        fetchAllRecipes();
 
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
@@ -92,6 +119,30 @@ public class home extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+    }
+
+    private void fetchAllRecipes() {
+        DatabaseReference recipesRef = FirebaseDatabase.getInstance().getReference("recipes");
+
+        recipesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                myRecipeList.clear(); // Clear existing recipes
+                for (DataSnapshot recipeSnapshot : snapshot.getChildren()) {
+                    Recipe recipe = recipeSnapshot.getValue(Recipe.class);
+                    if (recipe != null) {
+                        recipe.setRecipeId(recipeSnapshot.getKey()); // Set the recipe ID
+                        myRecipeList.add(recipe); // Add recipe to the list
+                    }
+                }
+                myRecipesAdapter.notifyDataSetChanged(); // Notify adapter of data change
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle possible errors.
+            }
         });
     }
 }

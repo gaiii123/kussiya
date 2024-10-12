@@ -47,7 +47,6 @@ public class RecipiesAdapter extends RecyclerView.Adapter<RecipiesAdapter.Recipe
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         Recipe recipe = recipeList.get(position);
         holder.recipeName.setText(recipe.getRecipeName());
-        holder.recipeDescription.setText(recipe.getDescription());
 
         // Load image using Glide
         Glide.with(holder.recipeImage.getContext())
@@ -57,6 +56,7 @@ public class RecipiesAdapter extends RecyclerView.Adapter<RecipiesAdapter.Recipe
         // Handle item click to navigate to the recipe view screen
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, RecipeViewActivity.class);
+            intent.putExtra("RECIPE_ID", recipe.getRecipeId());
             intent.putExtra("RECIPE_NAME", recipe.getRecipeName());
             intent.putExtra("RECIPE_DESCRIPTION", recipe.getDescription());
             intent.putExtra("RECIPE_IMAGE_URL", recipe.getImageUrl());
@@ -170,7 +170,6 @@ public class RecipiesAdapter extends RecyclerView.Adapter<RecipiesAdapter.Recipe
             super(itemView);
             recipeImage = itemView.findViewById(R.id.recipeImage);
             recipeName = itemView.findViewById(R.id.recipeName);
-            recipeDescription = itemView.findViewById(R.id.recipeDescription);
             editButton = itemView.findViewById(R.id.editButton);
             deleteButton = itemView.findViewById(R.id.deleteButton);
             favouriteButton = itemView.findViewById(R.id.favouriteButton);  // Initialize favouriteButton

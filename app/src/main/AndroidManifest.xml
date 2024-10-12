@@ -34,6 +34,7 @@
         <activity android:name="com.example.kussiya.FavouritesActivity" />
         <activity android:name="com.example.kussiya.RecipeViewActivity" />
         <activity android:name="com.example.kussiya.EditRecipeActivity" />
+        <activity android:name="com.example.kussiya.MyRecipeView" />
         <activity
             android:name="com.example.kussiya.MainActivity"
             android:exported="true">

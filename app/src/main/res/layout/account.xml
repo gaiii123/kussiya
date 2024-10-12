@@ -24,45 +24,14 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+            android:layout_height="match_parent"
+            android:layout_marginTop="80dp">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="700dp"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
 
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:background="@color/Screen"
-                    app:title="My Profile"
-                    app:titleMarginStart="30dp"
-                    app:titleTextColor="@color/white" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="320dp"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical"
-                        tools:layout_editor_absoluteX="1dp"
-                        tools:layout_editor_absoluteY="2dp">
-
-
-                        <Button
-                            android:id="@+id/favourite_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="16dp"
-                            android:backgroundTint="@color/Screen"
-                            android:text="My Favourite" />
 
                         <ImageView
                             android:id="@+id/imageView_user"
@@ -87,35 +56,27 @@
                             android:textStyle="bold"
                             tools:ignore="MissingConstraints" />
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"></LinearLayout>
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <TextView
-                    android:id="@+id/myRecipetxt"
+                <Button
+                    android:id="@+id/favourite_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="My Recipes"
-                    android:textColor="@color/Screen"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="@color/Screen"
+                    android:text="My Favourite" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/myRecipesRecyclerView"
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/myrecipe"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/myRecipetxt" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    android:backgroundTint="@color/Screen"
+                    android:text="My Recipe" />
 
-
-            </LinearLayout>
+                    </LinearLayout>
         </ScrollView>
 
 

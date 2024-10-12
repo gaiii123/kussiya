@@ -68,7 +68,7 @@ public class EditRecipeActivity extends AppCompatActivity {
         mStorage = FirebaseStorage.getInstance().getReference("recipe_media");
 
         // Get the recipeId passed from the previous activity
-        recipeId = getIntent().getStringExtra("recipeId");
+        recipeId = getIntent().getStringExtra("RECIPE_ID");
 
         // Populate existing recipe data
         loadRecipeDetails();
@@ -117,16 +117,20 @@ public class EditRecipeActivity extends AppCompatActivity {
                         currentImageUrl = recipe.getImageUrl();
                         currentVideoUrl = recipe.getVideoUrl();
 
-                        // Load image if available
+                        // Load image if available and set imageUri to currentImageUrl
                         if (currentImageUrl != null && !currentImageUrl.isEmpty()) {
                             Glide.with(EditRecipeActivity.this).load(currentImageUrl).into(recipeImage);
+                            imageUri = Uri.parse(currentImageUrl); // Set imageUri to the current image URL
                         } else {
                             recipeImage.setImageResource(R.drawable.placeholder);  // Placeholder if no image
                         }
 
-                        // Load video if available
+                        // Load video if available and set videoUri to currentVideoUrl
                         if (currentVideoUrl != null && !currentVideoUrl.isEmpty()) {
                             recipeVideo.setVideoPath(currentVideoUrl);
+                            videoUri = Uri.parse(currentVideoUrl); // Set videoUri to the current video URL
+                        } else {
+                            recipeVideo.setBackgroundResource(R.drawable.placeholder);  // Placeholder if no video
                         }
                     }
                 }
@@ -138,7 +142,6 @@ public class EditRecipeActivity extends AppCompatActivity {
             }
         });
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -166,16 +169,30 @@ public class EditRecipeActivity extends AppCompatActivity {
         // Disable submit button to prevent multiple clicks
         submitRecipeButton.setEnabled(false);
 
-        // Upload image if available
-        if (imageUri != null) {
+        // Check if imageUri or videoUri was already set or newly selected
+        if (imageUri != null && imageUri.toString().startsWith("https://")) {
+            // If imageUri points to an existing Firebase image, skip upload
+            if (videoUri != null && videoUri.toString().startsWith("https://")) {
+                // If videoUri points to an existing Firebase video, save directly
+                saveRecipe(recipeId, userId, recipeName, description, imageUri.toString(), category, videoUri.toString());
+            } else if (videoUri != null) {
+                // If a new video was picked, upload it
+                uploadVideo(recipeId, userId, recipeName, description, imageUri.toString(), category);
+            }
+        } else if (imageUri != null) {
+            // Upload new image if selected
             StorageReference imageRef = mStorage.child(userId + "/images/" + System.currentTimeMillis() + ".jpg");
             imageRef.putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
                 imageRef.getDownloadUrl().addOnSuccessListener(uri -> {
                     String uploadedImageUrl = uri.toString();
-                    if (videoUri != null) {
-                        uploadVideo(userId, recipeName, description, uploadedImageUrl, category);
+                    if (videoUri != null && videoUri.toString().startsWith("https://")) {
+                        // If videoUri points to an existing Firebase video, save directly
+                        saveRecipe(recipeId, userId, recipeName, description, uploadedImageUrl, category, videoUri.toString());
+                    } else if (videoUri != null) {
+                        // If a new video was picked, upload it
+                        uploadVideo(recipeId, userId, recipeName, description, uploadedImageUrl, category);
                     } else {
-                        saveUpdatedRecipe(recipeId, userId, recipeName, description, uploadedImageUrl, category, currentVideoUrl);
+                        saveRecipe(recipeId, userId, recipeName, description, uploadedImageUrl, category, null);
                     }
                 });
             }).addOnFailureListener(e -> {
@@ -183,36 +200,45 @@ public class EditRecipeActivity extends AppCompatActivity {
                 submitRecipeButton.setEnabled(true);
             });
         } else if (videoUri != null) {
-            uploadVideo(userId, recipeName, description, currentImageUrl, category);
+            uploadVideo(recipeId, userId, recipeName, description, null, category);
         } else {
-            // No new media selected, just update text fields
-            saveUpdatedRecipe(recipeId, userId, recipeName, description, currentImageUrl, category, currentVideoUrl);
+            Toast.makeText(this, "Please select an image or video", Toast.LENGTH_SHORT).show();
+            submitRecipeButton.setEnabled(true); // Re-enable button
         }
     }
 
-    private void uploadVideo(String userId, String recipeName, String description, String imageUrl, String category) {
+
+    private void uploadVideo(String recipeId,String userId, String recipeName, String description, String imageUrl, String category) {
         StorageReference videoRef = mStorage.child(userId + "/videos/" + System.currentTimeMillis() + ".mp4");
         videoRef.putFile(videoUri).addOnSuccessListener(taskSnapshot -> {
             videoRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                String uploadedVideoUrl = uri.toString();
-                saveUpdatedRecipe(recipeId, userId, recipeName, description, imageUrl, category, uploadedVideoUrl);
+                String uplodedVideoUrl = uri.toString();
+                saveRecipe(recipeId,userId, recipeName, description, imageUrl, category, uplodedVideoUrl);
             });
-        }).addOnFailureListener(e -> {
-            Toast.makeText(this, "Failed to upload video", Toast.LENGTH_SHORT).show();
-            submitRecipeButton.setEnabled(true);
-        });
+        }).addOnFailureListener(e -> Toast.makeText(this, "Failed to upload video", Toast.LENGTH_SHORT).show());
     }
 
-    private void saveUpdatedRecipe(String recipeId, String userId, String recipeName, String description, String imageUrl, String category, String videoUrl) {
-        Recipe updatedRecipe = new Recipe(recipeId, userId, recipeName, description, imageUrl, category, videoUrl);
-        mDatabase.child(recipeId).setValue(updatedRecipe).addOnCompleteListener(task -> {
+    private void saveRecipe(String recipeId, String userId, String recipeName, String description, String imageUrl, String category, String videoUrl) {
+        // Correctly mapped Recipe object creation
+        Recipe newRecipe = new Recipe(
+                recipeId,       // Correct recipeId
+                userId,         // Correct userId (currentUser's ID)
+                recipeName,     // Correct recipe name
+                description,    // Correct description
+                imageUrl,       // Correct image URL (or null if no image)
+                category,       // Correct category
+                videoUrl        // Correct video URL (or null if no video)
+        );
+
+        // Save the new recipe to Firebase
+        mDatabase.child(recipeId).setValue(newRecipe).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Toast.makeText(this, "Recipe updated successfully", Toast.LENGTH_SHORT).show();
-                finish();  // Go back to the previous screen
+                Toast.makeText(this, "Recipe added successfully", Toast.LENGTH_SHORT).show();
+                finish(); // Go back to the previous screen
             } else {
-                Toast.makeText(this, "Failed to update recipe", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Failed to add recipe", Toast.LENGTH_SHORT).show();
             }
-            submitRecipeButton.setEnabled(true);  // Re-enable button
+            submitRecipeButton.setEnabled(true);
         });
     }
 }
