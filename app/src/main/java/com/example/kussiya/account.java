@@ -141,7 +141,7 @@ public class account extends AppCompatActivity {
     }
 
 
-        // Method to open the image picker
+    // Method to open the image picker
     private void openImagePicker() {
         Intent intent = new Intent();
         intent.setType("image/*");
