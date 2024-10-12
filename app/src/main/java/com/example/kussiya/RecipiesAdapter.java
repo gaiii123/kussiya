@@ -60,6 +60,7 @@ public class RecipiesAdapter extends RecyclerView.Adapter<RecipiesAdapter.Recipe
             intent.putExtra("RECIPE_NAME", recipe.getRecipeName());
             intent.putExtra("RECIPE_DESCRIPTION", recipe.getDescription());
             intent.putExtra("RECIPE_IMAGE_URL", recipe.getImageUrl());
+            intent.putExtra("RECIPE_VIDEO_URL", recipe.getVideoUrl());
 
             context.startActivity(intent);
         });

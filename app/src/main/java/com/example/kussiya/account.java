@@ -77,7 +77,18 @@ public class account extends AppCompatActivity {
             userRef = FirebaseDatabase.getInstance().getReference("users").child(userId);
 
             // Retrieve the username from the database and set it in the TextView
-
+            userRef.child("username").get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    String username = task.getResult().getValue(String.class);
+                    if (username != null) {
+                        accountTextView.setText(username);
+                    } else {
+                        accountTextView.setText("User");
+                    }
+                } else {
+                    accountTextView.setText("User");
+                }
+            });
         }
 
         // Setup RecyclerView
@@ -130,7 +141,7 @@ public class account extends AppCompatActivity {
     }
 
 
-        // Method to open the image picker
+    // Method to open the image picker
     private void openImagePicker() {
         Intent intent = new Intent();
         intent.setType("image/*");

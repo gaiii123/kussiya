@@ -3,7 +3,7 @@ package com.example.kussiya;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
+import android.provider.MediaStore;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -126,7 +126,7 @@ public class EditRecipeActivity extends AppCompatActivity {
 
                         // Load video if available
                         if (currentVideoUrl != null && !currentVideoUrl.isEmpty()) {
-                            Toast.makeText(EditRecipeActivity.this, "Video available: " + currentVideoUrl, Toast.LENGTH_SHORT).show();
+                            recipeVideo.setVideoPath(currentVideoUrl);
                         }
                     }
                 }
@@ -147,8 +147,7 @@ public class EditRecipeActivity extends AppCompatActivity {
             recipeImage.setImageURI(imageUri);  // Update image preview
         } else if (requestCode == PICK_VIDEO_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             videoUri = data.getData();
-            recipeImage.setImageResource(R.drawable.placeholder);  // Show a placeholder image for video
-            Toast.makeText(this, "Video selected: " + videoUri.toString(), Toast.LENGTH_SHORT).show();
+            recipeVideo.setVideoURI(videoUri);  // Update video preview
         }
     }
 
