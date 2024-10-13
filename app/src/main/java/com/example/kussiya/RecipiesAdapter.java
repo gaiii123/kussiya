@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipiesAdapter extends RecyclerView.Adapter<RecipiesAdapter.RecipeViewHolder> {
@@ -55,13 +56,34 @@ public class RecipiesAdapter extends RecyclerView.Adapter<RecipiesAdapter.Recipe
 
         // Handle item click to navigate to the recipe view screen
         holder.itemView.setOnClickListener(v -> {
+            // Create the intent
             Intent intent = new Intent(context, RecipeViewActivity.class);
-            intent.putExtra("RECIPE_ID", recipe.getRecipeId());
-            intent.putExtra("RECIPE_NAME", recipe.getRecipeName());
-            intent.putExtra("RECIPE_DESCRIPTION", recipe.getDescription());
-            intent.putExtra("RECIPE_IMAGE_URL", recipe.getImageUrl());
-            intent.putExtra("RECIPE_VIDEO_URL", recipe.getVideoUrl());
 
+            String recipeName = recipe.getRecipeName();
+            String userId = recipe.getUserId();
+            String description = recipe.getDescription();
+            String imageUrl = recipe.getImageUrl();
+            String videoUrl = recipe.getVideoUrl();
+            String recipeId = recipe.getRecipeId();
+            String category = recipe.getCategory();
+            float rating = recipe.getRating();
+            int rateCount = recipe.getRateCount();
+
+            intent.putExtra("RECIPE_NAME", recipeName);
+            intent.putExtra("USER_ID", userId);
+            intent.putExtra("RECIPE_DESCRIPTION", description);
+            intent.putExtra("RECIPE_IMAGE_URL", imageUrl);
+            intent.putExtra("RECIPE_VIDEO_URL", videoUrl);
+            intent.putExtra("RECIPE_ID", recipeId);
+            intent.putExtra("CATEGORY", category);
+            intent.putExtra("RATING", rating);
+            intent.putExtra("RATE_COUNT", rateCount);
+            List<String> reviews = recipe.getReviews();
+            ArrayList<String> reviewsList = (reviews != null) ? new ArrayList<>(reviews) : new ArrayList<>();
+            intent.putStringArrayListExtra("REVIEWS", reviewsList);
+
+
+            // Start the activity
             context.startActivity(intent);
         });
 

@@ -28,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.List;
+
 public class EditRecipeActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -46,6 +48,9 @@ public class EditRecipeActivity extends AppCompatActivity {
     private String recipeId;
     private String currentImageUrl;
     private String currentVideoUrl;
+    private float rating;
+    private int rateCount;
+    private List<String> reviews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +109,11 @@ public class EditRecipeActivity extends AppCompatActivity {
                     if (recipe != null) {
                         recipeNameInput.setText(recipe.getRecipeName());
                         recipeDescription.setText(recipe.getDescription());
+                        rating = recipe.getRating();
+                        rateCount = recipe.getRateCount();
+                        reviews = recipe.getReviews();
+
+
 
                         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(EditRecipeActivity.this,
                                 R.array.recipe_categories, android.R.layout.simple_spinner_item);
@@ -174,10 +184,10 @@ public class EditRecipeActivity extends AppCompatActivity {
             // If imageUri points to an existing Firebase image, skip upload
             if (videoUri != null && videoUri.toString().startsWith("https://")) {
                 // If videoUri points to an existing Firebase video, save directly
-                saveRecipe(recipeId, userId, recipeName, description, imageUri.toString(), category, videoUri.toString());
+                saveRecipe(recipeId, userId, recipeName, description, imageUri.toString(), category, videoUri.toString(),rating,rateCount,reviews);
             } else if (videoUri != null) {
                 // If a new video was picked, upload it
-                uploadVideo(recipeId, userId, recipeName, description, imageUri.toString(), category);
+                uploadVideo(recipeId, userId, recipeName, description, imageUri.toString(), category,rating,rateCount,reviews);
             }
         } else if (imageUri != null) {
             // Upload new image if selected
@@ -187,12 +197,12 @@ public class EditRecipeActivity extends AppCompatActivity {
                     String uploadedImageUrl = uri.toString();
                     if (videoUri != null && videoUri.toString().startsWith("https://")) {
                         // If videoUri points to an existing Firebase video, save directly
-                        saveRecipe(recipeId, userId, recipeName, description, uploadedImageUrl, category, videoUri.toString());
+                        saveRecipe(recipeId, userId, recipeName, description, uploadedImageUrl, category, videoUri.toString(), rating, rateCount, reviews);
                     } else if (videoUri != null) {
                         // If a new video was picked, upload it
-                        uploadVideo(recipeId, userId, recipeName, description, uploadedImageUrl, category);
+                        uploadVideo(recipeId, userId, recipeName, description, uploadedImageUrl, category,rating, rateCount, reviews);
                     } else {
-                        saveRecipe(recipeId, userId, recipeName, description, uploadedImageUrl, category, null);
+                        saveRecipe(recipeId, userId, recipeName, description, uploadedImageUrl, category, null,rating, rateCount, reviews);
                     }
                 });
             }).addOnFailureListener(e -> {
@@ -200,7 +210,7 @@ public class EditRecipeActivity extends AppCompatActivity {
                 submitRecipeButton.setEnabled(true);
             });
         } else if (videoUri != null) {
-            uploadVideo(recipeId, userId, recipeName, description, null, category);
+            uploadVideo(recipeId, userId, recipeName, description, null, category, rating, rateCount, reviews);
         } else {
             Toast.makeText(this, "Please select an image or video", Toast.LENGTH_SHORT).show();
             submitRecipeButton.setEnabled(true); // Re-enable button
@@ -208,17 +218,17 @@ public class EditRecipeActivity extends AppCompatActivity {
     }
 
 
-    private void uploadVideo(String recipeId,String userId, String recipeName, String description, String imageUrl, String category) {
+    private void uploadVideo(String recipeId,String userId, String recipeName, String description, String imageUrl, String category, float rating, int rateCount, List<String> reviews) {
         StorageReference videoRef = mStorage.child(userId + "/videos/" + System.currentTimeMillis() + ".mp4");
         videoRef.putFile(videoUri).addOnSuccessListener(taskSnapshot -> {
             videoRef.getDownloadUrl().addOnSuccessListener(uri -> {
                 String uplodedVideoUrl = uri.toString();
-                saveRecipe(recipeId,userId, recipeName, description, imageUrl, category, uplodedVideoUrl);
+                saveRecipe(recipeId,userId, recipeName, description, imageUrl, category, uplodedVideoUrl, rating, rateCount, reviews);
             });
         }).addOnFailureListener(e -> Toast.makeText(this, "Failed to upload video", Toast.LENGTH_SHORT).show());
     }
 
-    private void saveRecipe(String recipeId, String userId, String recipeName, String description, String imageUrl, String category, String videoUrl) {
+    private void saveRecipe(String recipeId, String userId, String recipeName, String description, String imageUrl, String category, String videoUrl,float rating, int rateCount, List<String> reviews) {
         // Correctly mapped Recipe object creation
         Recipe newRecipe = new Recipe(
                 recipeId,       // Correct recipeId
@@ -227,7 +237,10 @@ public class EditRecipeActivity extends AppCompatActivity {
                 description,    // Correct description
                 imageUrl,       // Correct image URL (or null if no image)
                 category,       // Correct category
-                videoUrl        // Correct video URL (or null if no video)
+                videoUrl,       // Correct video URL (or null if no video)
+                rating,
+                rateCount,
+                reviews
         );
 
         // Save the new recipe to Firebase

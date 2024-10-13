@@ -28,6 +28,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.List;
+
 public class recipe_add extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -42,6 +44,9 @@ public class recipe_add extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private StorageReference mStorage;
+    private float rating;
+    private int rateCount;
+    private List<String> reviews;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +136,7 @@ public class recipe_add extends AppCompatActivity {
                     if (videoUri != null) {
                         uploadVideo(recipeId, userId, recipeName, description, uploadedImageUrl, category);
                     } else {
-                        saveRecipe(recipeId, userId, recipeName, description, uploadedImageUrl, category, null);
+                        saveRecipe(recipeId, userId, recipeName, description, uploadedImageUrl, category, null,rating,rateCount,reviews);
                     }
                 });
             }).addOnFailureListener(e -> {
@@ -151,12 +156,12 @@ public class recipe_add extends AppCompatActivity {
         videoRef.putFile(videoUri).addOnSuccessListener(taskSnapshot -> {
             videoRef.getDownloadUrl().addOnSuccessListener(uri -> {
                 String uplodedVideoUrl = uri.toString();
-                saveRecipe(recipeId,userId, recipeName, description, imageUrl, category, uplodedVideoUrl);
+                saveRecipe(recipeId,userId, recipeName, description, imageUrl, category, uplodedVideoUrl, rating,rateCount,reviews);
             });
         }).addOnFailureListener(e -> Toast.makeText(this, "Failed to upload video", Toast.LENGTH_SHORT).show());
     }
 
-    private void saveRecipe(String recipeId, String userId, String recipeName, String description, String imageUrl, String category, String videoUrl) {
+    private void saveRecipe(String recipeId, String userId, String recipeName, String description, String imageUrl, String category, String videoUrl,float rating, int rateCount, List<String> reviews) {
         // Correctly mapped Recipe object creation
         Recipe newRecipe = new Recipe(
                 recipeId,       // Correct recipeId
@@ -165,7 +170,10 @@ public class recipe_add extends AppCompatActivity {
                 description,    // Correct description
                 imageUrl,       // Correct image URL (or null if no image)
                 category,       // Correct category
-                videoUrl        // Correct video URL (or null if no video)
+                videoUrl,
+                rating,
+                rateCount,
+                reviews
         );
 
         // Save the new recipe to Firebase

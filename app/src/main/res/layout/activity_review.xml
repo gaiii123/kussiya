@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/main"
+    tools:context=".review">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/Screen"/>
+
+        <RelativeLayout
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="-75dp"
+            android:background="@drawable/back_stroke"
+            android:padding="20dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/back_while"/>
+
+            <ImageView
+                android:id="@+id/rate1img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:padding="25dp"
+                android:src="@drawable/emoji1"
+                android:layout_centerInParent="true" />
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rate this recipe"
+            android:layout_marginTop="18dp"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:text="" />
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="18dp"
+            android:rating="2"
+            android:theme="@style/MyRatingBar"
+            />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="18dp"
+            android:gravity="center"
+            android:text="Review this recipe"
+            android:textColor="@color/black"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/reviewtext"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/search_bkg"
+            android:gravity="top"
+            android:hint="Add your review here"
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/reviewSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Submit"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bottom_backg"
+            />
+
+    </LinearLayout>
+</LinearLayout>

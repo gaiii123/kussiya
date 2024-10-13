@@ -6,75 +6,94 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/recipeImageView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/recipeNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-    <LinearLayout
-        android:id="@+id/buttonContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-
-        android:orientation="horizontal"
-        android:visibility="visible"
-        tools:visibility="visible">
-
-        <Button
-            android:id="@+id/editButton"
-            android:layout_width="50dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/baseline_edit_icon"
-            android:text="Edit"
-            android:visibility="visible" />
+            android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/deleteButton"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/baseline_delete_outline_24"
-            android:text="Delete" />
+            <ImageView
+                android:id="@+id/recipeImageView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop" />
 
-        <Button
-            android:id="@+id/favouriteButton"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="150dp"
-            android:background="@drawable/baseline_favorite_border_24"/>  <!-- Non-favorited icon -->/>   <!-- Text can be optional -->
+            <TextView
+                android:id="@+id/recipeNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/recipeDescriptionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="4dp" />
 
-    <TextView
-        android:id="@+id/recipeDescriptionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="4dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:orientation="horizontal">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/videoButtonView"
-        android:text="Play Video"
-        android:layout_marginTop="10dp"
-        />
+                <Button
+                    android:id="@+id/videoButtonView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
 
-    <VideoView
-        android:id="@+id/VideoView"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:visibility="visible"
-        tools:visibility="visible" />
+                    android:text="Play Video" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="41dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:isIndicator="true"
+                    />
+            </LinearLayout>
+
+            <VideoView
+                android:id="@+id/VideoView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:visibility="visible"
+                tools:visibility="visible" />
+
+            <Button
+                android:id="@+id/reviewbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Rate &amp; Review" />
+
+            <TextView
+                android:id="@+id/Reviews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="Reviews"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+            <LinearLayout
+                android:id="@+id/reviewView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                tools:ignore="MissingConstraints">
 
 
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 
 </LinearLayout>
