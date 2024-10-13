@@ -7,40 +7,57 @@
     android:layout_height="match_parent"
     tools:context=".RecipesCategoryActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@color/Screen"
         app:title="Category_Title"
-        app:titleTextColor="@color/white"
+        android:paddingStart="40dp"
         app:titleMarginStart="30dp"
-        />
+        app:titleTextColor="@color/white" />
 
-
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="90dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:contentDescription="back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.045"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.03"
+            app:srcCompat="@drawable/backbutton" />
+
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="20dp"
+            tools:layout_editor_absoluteY="90dp">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recipesRecyclerView"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="16dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-        </LinearLayout>
-    </ScrollView>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recipesRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="100dp"
+                    android:padding="16dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </LinearLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </RelativeLayout>

@@ -1,8 +1,12 @@
 package com.example.kussiya;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +34,8 @@ public class RecipeCategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_category);
 
         recipesRecyclerView = findViewById(R.id.recipesRecyclerView);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+
         recipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         recipeList = new ArrayList<>();
         currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -38,8 +44,14 @@ public class RecipeCategoryActivity extends AppCompatActivity {
 
         // Get category from intent
         String category = getIntent().getStringExtra("CATEGORY");
-
+        toolbar.setTitle(category);
         mDatabase = FirebaseDatabase.getInstance().getReference("recipes");
+
+        ImageView backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(v -> {
+            finish();
+        });
+
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override

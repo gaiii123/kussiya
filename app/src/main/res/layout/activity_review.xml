@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,16 +13,36 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:background="@color/Screen"/>
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/Screen">
+
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:contentDescription="back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.24000001"
+                app:srcCompat="@drawable/backbutton" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>">
+
+
+
+
+
+    <RelativeLayout
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
-            android:layout_marginTop="-75dp"
+            android:layout_marginTop="-170dp"
             android:background="@drawable/back_stroke"
             android:padding="20dp">
 
@@ -36,7 +57,7 @@
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:padding="25dp"
-                android:src="@drawable/emoji1"
+                android:src="@drawable/stars"
                 android:layout_centerInParent="true" />
 
 
@@ -46,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Rate this recipe"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="40dp"
             android:textColor="@color/black"
             android:textSize="25dp"
             android:textStyle="bold"
@@ -68,9 +89,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="18dp"
-            android:rating="2"
+            android:rating="2.5"
             android:theme="@style/MyRatingBar"
             />
 

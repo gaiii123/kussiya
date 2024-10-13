@@ -1,7 +1,9 @@
 package com.example.kussiya;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,6 +39,11 @@ public class FavouritesActivity extends AppCompatActivity {
         favouriteRecipesList = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
+
+        ImageView backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(v -> {
+            finish();
+        });
 
         if (user != null) {
             userId = user.getUid();

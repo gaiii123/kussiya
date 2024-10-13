@@ -77,6 +77,11 @@ public class EditRecipeActivity extends AppCompatActivity {
         // Populate existing recipe data
         loadRecipeDetails();
 
+        ImageView backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(v -> {
+            finish();
+        });
+
         // Set listeners for selecting images or videos
         uploadImageButton.setOnClickListener(v -> openImageChooser());
         uploadVideoButton.setOnClickListener(v -> openVideoChooser());

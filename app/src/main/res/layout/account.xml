@@ -13,15 +13,6 @@
         android:layout_height="match_parent">
 
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar2"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@color/Screen"
-            app:title="My Profile"
-            app:titleMarginStart="30dp"
-            app:titleTextColor="@color/white" />
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -47,22 +38,12 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="320dp"
+                        android:layout_height="290dp"
                         android:gravity="center_horizontal"
                         android:orientation="vertical"
                         tools:layout_editor_absoluteX="1dp"
                         tools:layout_editor_absoluteY="2dp">
 
-
-                        <Button
-                            android:id="@+id/favourite_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="16dp"
-                            android:backgroundTint="@color/Screen"
-                            android:text="My Favourite" />
 
                         <ImageView
                             android:id="@+id/imageView_user"
@@ -86,6 +67,16 @@
                             android:textSize="24dp"
                             android:textStyle="bold"
                             tools:ignore="MissingConstraints" />
+
+                        <Button
+                            android:id="@+id/favourite_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bottom_backg"
+                            android:padding="15dp"
+                            android:text="My Favourites" />
 
                     </LinearLayout>
 
@@ -112,6 +103,7 @@
                     android:id="@+id/myRecipesRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:layout_below="@id/myRecipetxt" />
 
 
@@ -129,7 +121,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="#DB9191"
+        android:background="@drawable/gray_background"
         android:text="Logout"
         android:textColor="#242424"
         android:textSize="16sp"

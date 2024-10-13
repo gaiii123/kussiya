@@ -1,9 +1,9 @@
 package com.example.kussiya;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
@@ -18,10 +18,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class review extends AppCompatActivity {
@@ -40,6 +38,11 @@ public class review extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        ImageView backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(v -> {
+            finish();
         });
 
         reviewText = findViewById(R.id.reviewtext);

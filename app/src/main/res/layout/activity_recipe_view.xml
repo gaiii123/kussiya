@@ -3,99 +3,118 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:contentDescription="back"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/backbutton" />
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <ImageView
-                android:id="@+id/recipeImageView"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop" />
-
-            <TextView
-                android:id="@+id/recipeNameTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/recipeDescriptionTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="4dp" />
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteY="699dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/videoButtonView"
+                <ImageView
+                    android:id="@+id/recipeImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop" />
+
+                <TextView
+                    android:id="@+id/recipeNameTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:paddingTop="8dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-                    android:text="Play Video" />
-
-                <RatingBar
-                    android:id="@+id/ratingBar"
+                <TextView
+                    android:id="@+id/recipeDescriptionTextView"
                     android:layout_width="wrap_content"
-                    android:layout_height="41dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:isIndicator="true"
-                    />
+                    android:layout_height="wrap_content"
+                    android:paddingTop="4dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/videoButtonView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+
+                        android:text="Play Video" />
+
+                    <RatingBar
+                        android:id="@+id/ratingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="41dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:isIndicator="true" />
+                </LinearLayout>
+
+                <VideoView
+                    android:id="@+id/VideoView"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:visibility="visible"
+                    tools:visibility="visible" />
+
+                <Button
+                    android:id="@+id/reviewbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Rate &amp; Review" />
+
+                <TextView
+                    android:id="@+id/Reviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:text="Reviews"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/reviewView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    tools:ignore="MissingConstraints">
+
+
+                </LinearLayout>
+
             </LinearLayout>
-
-            <VideoView
-                android:id="@+id/VideoView"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:visibility="visible"
-                tools:visibility="visible" />
-
-            <Button
-                android:id="@+id/reviewbutton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Rate &amp; Review" />
-
-            <TextView
-                android:id="@+id/Reviews"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:text="Reviews"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-            <LinearLayout
-                android:id="@+id/reviewView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                tools:ignore="MissingConstraints">
-
-
-
-
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </LinearLayout>
