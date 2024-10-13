@@ -38,7 +38,7 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:background="@drawable/baseline_edit_icon"
-            android:text="Edit"
+
             android:visibility="visible" />
 
         <Button
@@ -47,13 +47,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:background="@drawable/baseline_delete_outline_24"
-            android:text="Delete" />
+             />
 
         <Button
             android:id="@+id/favouriteButton"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="150dp"
+            android:layout_marginStart="100dp"
             android:background="@drawable/baseline_favorite_border_24"/>  <!-- Non-favorited icon -->/>   <!-- Text can be optional -->
 
     </LinearLayout>
